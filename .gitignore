@@ -4,10 +4,11 @@
 
 # =========================
 
-**pycache**/
+__pycache__/
 *.py[cod]
 *.pyo
 .python-version
+.pytest_cache/
 
 # Virtual environments
 

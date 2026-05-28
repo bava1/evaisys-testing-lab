@@ -4,14 +4,14 @@ Demo backend for EVAISYS Testing Lab automated testing workflows.
 
 ## Install dependencies
 
-```bash
-pip install -r requirements.txt
+```powershell
+powershell -ExecutionPolicy Bypass -File ../../scripts/setup-backend.ps1
 ```
 
 ## Run locally
 
-```bash
-uvicorn app.main:app --reload
+```powershell
+powershell -ExecutionPolicy Bypass -File ../../scripts/run-backend.ps1
 ```
 
 ## Available endpoints

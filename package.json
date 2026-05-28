@@ -1,0 +1,13 @@
+{
+  "name": "evaisys-testing-lab",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "npm --prefix apps/frontend run dev",
+    "dev:backend": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

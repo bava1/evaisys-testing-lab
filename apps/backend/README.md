@@ -14,6 +14,18 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-## Health endpoint
+## Available endpoints
 
 - `GET /health`
+- `POST /auth/login`
+- `GET /auth/me`
+- `GET /tasks`
+- `POST /tasks`
+- `PATCH /tasks/{task_id}`
+- `DELETE /tasks/{task_id}`
+- `GET /requests`
+- `POST /requests`
+- `PATCH /requests/{request_id}`
+- `GET /articles`
+- `GET /articles/{article_id}`
+- `POST /contact`

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Typography } from "@mui/material";
 import PageContainer from "@/components/page-container";
+import ArticlesSection from "@/components/articles-section";
 
 export const metadata: Metadata = {
   title: "Articles | EVAISYS Testing Lab",
@@ -11,12 +11,10 @@ export default function ArticlesPage() {
   return (
     <PageContainer
       title="Articles"
-      description="Placeholder section for the future knowledge and articles workflow."
+      description="Demo articles search and filter section for UI and E2E testing scenarios."
       testId="articles"
     >
-      <Typography variant="body2" color="text.secondary">
-        Article catalog, filtering, and reading views will be introduced later.
-      </Typography>
+      <ArticlesSection />
     </PageContainer>
   );
 }

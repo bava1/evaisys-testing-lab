@@ -1,0 +1,258 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+type DemoContact = {
+  id: number;
+  name: string;
+  role: string;
+  email: string;
+  description: string;
+  avatar: string;
+};
+
+type FeedbackFormState = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+const demoContacts: DemoContact[] = [
+  {
+    id: 1,
+    name: "Anna Novak",
+    role: "QA Engineer",
+    email: "anna.novak@evaisys.demo",
+    description: "Coordinates manual validation scenarios and exploratory checks.",
+    avatar: "AN",
+  },
+  {
+    id: 2,
+    name: "Milan Horak",
+    role: "Test Automation Engineer",
+    email: "milan.horak@evaisys.demo",
+    description: "Designs automation flows and stabilizes test suites.",
+    avatar: "MH",
+  },
+  {
+    id: 3,
+    name: "Elena Petrov",
+    role: "Frontend Developer",
+    email: "elena.petrov@evaisys.demo",
+    description: "Implements UI workflows and test-friendly component structure.",
+    avatar: "EP",
+  },
+  {
+    id: 4,
+    name: "Jakub Sramek",
+    role: "Backend Developer",
+    email: "jakub.sramek@evaisys.demo",
+    description: "Builds API endpoints and backend integration contracts.",
+    avatar: "JS",
+  },
+  {
+    id: 5,
+    name: "Sofia Malik",
+    role: "Product Owner",
+    email: "sofia.malik@evaisys.demo",
+    description: "Aligns product priorities with testing and quality goals.",
+    avatar: "SM",
+  },
+  {
+    id: 6,
+    name: "Petr Vacek",
+    role: "AI Specialist",
+    email: "petr.vacek@evaisys.demo",
+    description: "Supports AI-assisted workflow design and scenario generation.",
+    avatar: "PV",
+  },
+];
+
+const defaultFormState: FeedbackFormState = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+function validateFeedbackForm(form: FeedbackFormState): string | null {
+  const trimmedName = form.name.trim();
+  const trimmedEmail = form.email.trim();
+  const trimmedMessage = form.message.trim();
+
+  if (!trimmedName) {
+    return "Name is required.";
+  }
+
+  if (!trimmedEmail) {
+    return "Email is required.";
+  }
+
+  if (!trimmedEmail.includes("@")) {
+    return "Email must contain '@'.";
+  }
+
+  if (!trimmedMessage) {
+    return "Message is required.";
+  }
+
+  if (trimmedMessage.length < 10) {
+    return "Message must be at least 10 characters.";
+  }
+
+  if (trimmedMessage.length > 1000) {
+    return "Message must be at most 1000 characters.";
+  }
+
+  return null;
+}
+
+export default function ContactsFeedback() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [feedbackForm, setFeedbackForm] = useState<FeedbackFormState>(defaultFormState);
+  const [validationError, setValidationError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const filteredContacts = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return demoContacts;
+    }
+
+    return demoContacts.filter((contact) => {
+      return (
+        contact.name.toLowerCase().includes(normalizedQuery) ||
+        contact.role.toLowerCase().includes(normalizedQuery)
+      );
+    });
+  }, [searchQuery]);
+
+  const handleFeedbackSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setValidationError("");
+    setSuccessMessage("");
+
+    const error = validateFeedbackForm(feedbackForm);
+
+    if (error) {
+      setValidationError(error);
+      return;
+    }
+
+    setSuccessMessage("Feedback submitted successfully.");
+    setFeedbackForm(defaultFormState);
+  };
+
+  return (
+    <Stack spacing={4} data-testid="contacts-section">
+      <Stack spacing={2}>
+        <TextField
+          label="Search contacts"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          inputProps={{ "data-testid": "contacts-search-input" }}
+          fullWidth
+        />
+
+        {filteredContacts.length === 0 ? (
+          <Typography variant="body2" color="text.secondary" data-testid="contacts-empty-state">
+            No contacts found for current search.
+          </Typography>
+        ) : (
+          <Stack spacing={2}>
+            {filteredContacts.map((contact) => (
+              <Paper key={contact.id} variant="outlined" sx={{ p: 2 }} data-testid={`contact-card-${contact.id}`}>
+                <Stack direction="row" spacing={2} alignItems="flex-start">
+                  <Avatar>{contact.avatar}</Avatar>
+                  <Stack spacing={0.5}>
+                    <Typography variant="h6" data-testid={`contact-name-${contact.id}`}>
+                      {contact.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" data-testid={`contact-role-${contact.id}`}>
+                      {contact.role}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {contact.email}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {contact.description}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Paper>
+            ))}
+          </Stack>
+        )}
+      </Stack>
+
+      <Paper variant="outlined" sx={{ p: 2 }}>
+        <Box component="form" onSubmit={handleFeedbackSubmit} data-testid="feedback-form">
+          <Stack spacing={2}>
+            <Typography variant="h6">Feedback</Typography>
+            <TextField
+              label="Name"
+              value={feedbackForm.name}
+              onChange={(event) =>
+                setFeedbackForm((prev) => ({
+                  ...prev,
+                  name: event.target.value,
+                }))
+              }
+              inputProps={{ "data-testid": "feedback-name-input" }}
+              fullWidth
+            />
+            <TextField
+              label="Email"
+              value={feedbackForm.email}
+              onChange={(event) =>
+                setFeedbackForm((prev) => ({
+                  ...prev,
+                  email: event.target.value,
+                }))
+              }
+              inputProps={{ "data-testid": "feedback-email-input" }}
+              fullWidth
+            />
+            <TextField
+              label="Message"
+              value={feedbackForm.message}
+              onChange={(event) =>
+                setFeedbackForm((prev) => ({
+                  ...prev,
+                  message: event.target.value,
+                }))
+              }
+              inputProps={{ "data-testid": "feedback-message-input" }}
+              multiline
+              minRows={4}
+              fullWidth
+            />
+            {validationError ? (
+              <Alert severity="error" data-testid="feedback-validation-error">
+                {validationError}
+              </Alert>
+            ) : null}
+            {successMessage ? (
+              <Alert severity="success" data-testid="feedback-success-message">
+                {successMessage}
+              </Alert>
+            ) : null}
+            <Button type="submit" variant="contained" data-testid="feedback-submit-button">
+              Send Feedback
+            </Button>
+          </Stack>
+        </Box>
+      </Paper>
+    </Stack>
+  );
+}

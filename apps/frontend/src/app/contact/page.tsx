@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Typography } from "@mui/material";
 import PageContainer from "@/components/page-container";
+import ContactsFeedback from "@/components/contacts-feedback";
 
 export const metadata: Metadata = {
   title: "Contact | EVAISYS Testing Lab",
@@ -11,12 +11,10 @@ export default function ContactPage() {
   return (
     <PageContainer
       title="Contact"
-      description="Placeholder section for the future contact form workflow."
+      description="Demo contacts and feedback section for UI and E2E testing scenarios."
       testId="contact"
     >
-      <Typography variant="body2" color="text.secondary">
-        Contact form fields, validation, and submission handling will be implemented in a later phase.
-      </Typography>
+      <ContactsFeedback />
     </PageContainer>
   );
 }

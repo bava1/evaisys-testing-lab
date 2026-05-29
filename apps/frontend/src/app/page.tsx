@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Typography } from "@mui/material";
 import PageContainer from "@/components/page-container";
+import HomeDashboard from "@/components/home-dashboard";
 
 export const metadata: Metadata = {
   title: "Home | EVAISYS Testing Lab",
@@ -14,9 +14,7 @@ export default function HomePage() {
       description="EVAISYS Testing Lab is a controlled testing application for practical frontend, backend, and automation workflows."
       testId="home"
     >
-      <Typography variant="body2" color="text.secondary">
-        This page is prepared for future dashboard-style overview content.
-      </Typography>
+      <HomeDashboard />
     </PageContainer>
   );
 }

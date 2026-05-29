@@ -3,6 +3,7 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { appTheme } from "@/theme/theme";
 import { AuthProvider } from "@/components/auth-context";
+import ProtectedRoute from "@/components/protected-route";
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ export default function Providers({ children }: ProvidersProps) {
     <AuthProvider>
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
-        {children}
+        <ProtectedRoute>{children}</ProtectedRoute>
       </ThemeProvider>
     </AuthProvider>
   );

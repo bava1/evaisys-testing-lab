@@ -1,9 +1,13 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Alert, Box, Button, Stack, TextField } from "@mui/material";
+import { useAuth } from "@/components/auth-context";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,7 +28,15 @@ export default function LoginForm() {
       return;
     }
 
+    const isLoginSuccessful = login(username.trim(), password);
+
+    if (!isLoginSuccessful) {
+      setErrorMessage("Invalid credentials.");
+      return;
+    }
+
     setSuccessMessage("Demo login form validated.");
+    router.push("/");
   };
 
   return (

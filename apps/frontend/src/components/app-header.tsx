@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   AppBar,
   Box,
@@ -12,6 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useAuth } from "@/components/auth-context";
 
 const navItems = [
   { href: "/", label: "Home", testId: "nav-link-home" },
@@ -23,6 +24,8 @@ const navItems = [
 
 export default function AppHeader() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { isAuthenticated, isReady, logout } = useAuth();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const isRouteActive = (href: string) => {
@@ -39,6 +42,11 @@ export default function AppHeader() {
 
   const handleMobileNavClose = () => {
     setIsMobileNavOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
   };
 
   return (
@@ -72,7 +80,16 @@ export default function AppHeader() {
           ))}
         </Box>
 
-        <Box data-testid="auth-actions" sx={{ display: { xs: "none", md: "block" }, minWidth: 1 }} />
+        <Box
+          data-testid="auth-actions"
+          sx={{ display: { xs: "none", md: "flex" }, minWidth: 1, justifyContent: "flex-end" }}
+        >
+          {isReady && isAuthenticated ? (
+            <Button color="inherit" onClick={handleLogout} data-testid="auth-logout-button">
+              Logout
+            </Button>
+          ) : null}
+        </Box>
 
         <IconButton
           color="inherit"

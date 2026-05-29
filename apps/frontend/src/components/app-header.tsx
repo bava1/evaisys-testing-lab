@@ -15,7 +15,6 @@ import {
 
 const navItems = [
   { href: "/", label: "Home", testId: "nav-link-home" },
-  { href: "/login", label: "Login", testId: "nav-link-login" },
   { href: "/tasks", label: "Tasks", testId: "nav-link-tasks" },
   { href: "/requests", label: "Requests", testId: "nav-link-requests" },
   { href: "/articles", label: "Articles", testId: "nav-link-articles" },
@@ -72,6 +71,8 @@ export default function AppHeader() {
             </Button>
           ))}
         </Box>
+
+        <Box data-testid="auth-actions" sx={{ display: { xs: "none", md: "block" }, minWidth: 1 }} />
 
         <IconButton
           color="inherit"

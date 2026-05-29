@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Typography } from "@mui/material";
 import PageContainer from "@/components/page-container";
+import RequestsWorkflow from "@/components/requests-workflow";
 
 export const metadata: Metadata = {
   title: "Requests | EVAISYS Testing Lab",
@@ -11,12 +11,10 @@ export default function RequestsPage() {
   return (
     <PageContainer
       title="Requests"
-      description="Placeholder section for the future request management workflow."
+      description="Demo request workflow and status zone for UI and E2E testing scenarios."
       testId="requests"
     >
-      <Typography variant="body2" color="text.secondary">
-        Request queue, status transitions, and operational actions will be added later.
-      </Typography>
+      <RequestsWorkflow />
     </PageContainer>
   );
 }

@@ -1,7 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Box, Chip, Paper, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  MenuItem,
+  Paper,
+  Stack,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 
 type TaskStatus = "active" | "completed";
 type TaskPriority = "low" | "medium" | "high";
@@ -39,20 +50,149 @@ const demoTasks: DemoTask[] = [
   },
 ];
 
+type TaskFormState = {
+  title: string;
+  description: string;
+  priority: TaskPriority;
+};
+
+const defaultTaskFormState: TaskFormState = {
+  title: "",
+  description: "",
+  priority: "medium",
+};
+
+function validateTaskForm(form: TaskFormState): string | null {
+  const trimmedTitle = form.title.trim();
+  const trimmedDescription = form.description.trim();
+
+  if (!trimmedTitle) {
+    return "Title is required.";
+  }
+
+  if (trimmedTitle.length < 3) {
+    return "Title must be at least 3 characters.";
+  }
+
+  if (trimmedTitle.length > 100) {
+    return "Title must be at most 100 characters.";
+  }
+
+  if (trimmedDescription.length > 500) {
+    return "Description must be at most 500 characters.";
+  }
+
+  return null;
+}
+
 export default function TasksList() {
+  const [tasks, setTasks] = useState<DemoTask[]>(demoTasks);
   const [filter, setFilter] = useState<TaskFilter>("all");
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  const [form, setForm] = useState<TaskFormState>(defaultTaskFormState);
+  const [validationError, setValidationError] = useState("");
+
+  const isEditMode = editingTaskId !== null;
 
   const filteredTasks = useMemo(() => {
     if (filter === "all") {
-      return demoTasks;
+      return tasks;
     }
 
-    return demoTasks.filter((task) => task.status === filter);
-  }, [filter]);
+    return tasks.filter((task) => task.status === filter);
+  }, [filter, tasks]);
+
+  const resetForm = () => {
+    setForm(defaultTaskFormState);
+    setEditingTaskId(null);
+    setValidationError("");
+  };
+
+  const handleCreateStart = () => {
+    resetForm();
+    setIsFormVisible(true);
+  };
+
+  const handleEditStart = (task: DemoTask) => {
+    setForm({
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+    });
+    setEditingTaskId(task.id);
+    setValidationError("");
+    setIsFormVisible(true);
+  };
+
+  const handleSaveTask = () => {
+    const error = validateTaskForm(form);
+
+    if (error) {
+      setValidationError(error);
+      return;
+    }
+
+    const trimmedTitle = form.title.trim();
+    const trimmedDescription = form.description.trim();
+
+    if (isEditMode) {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === editingTaskId
+            ? {
+                ...task,
+                title: trimmedTitle,
+                description: trimmedDescription,
+                priority: form.priority,
+              }
+            : task
+        )
+      );
+    } else {
+      const nextId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1;
+
+      setTasks((prevTasks) => [
+        ...prevTasks,
+        {
+          id: nextId,
+          title: trimmedTitle,
+          description: trimmedDescription,
+          priority: form.priority,
+          status: "active",
+        },
+      ]);
+    }
+
+    resetForm();
+    setIsFormVisible(false);
+  };
+
+  const handleDeleteTask = (taskId: number) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+
+    if (editingTaskId === taskId) {
+      resetForm();
+      setIsFormVisible(false);
+    }
+  };
+
+  const handleToggleTaskStatus = (taskId: number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              status: task.status === "active" ? "completed" : "active",
+            }
+          : task
+      )
+    );
+  };
 
   return (
     <Stack spacing={3} data-testid="tasks-list">
-      <Box>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
         <ToggleButtonGroup
           value={filter}
           exclusive
@@ -74,7 +214,66 @@ export default function TasksList() {
             Completed
           </ToggleButton>
         </ToggleButtonGroup>
-      </Box>
+        <Button variant="contained" onClick={handleCreateStart} data-testid="task-create-button">
+          Add Task
+        </Button>
+      </Stack>
+
+      {isFormVisible ? (
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Title"
+              value={form.title}
+              onChange={(event) => setForm((prev) => ({ ...prev, title: event.target.value }))}
+              inputProps={{ "data-testid": "task-title-input" }}
+              fullWidth
+            />
+            <TextField
+              label="Description"
+              value={form.description}
+              onChange={(event) => setForm((prev) => ({ ...prev, description: event.target.value }))}
+              inputProps={{ "data-testid": "task-description-input" }}
+              fullWidth
+              multiline
+              minRows={3}
+            />
+            <TextField
+              select
+              label="Priority"
+              value={form.priority}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, priority: event.target.value as TaskPriority }))
+              }
+              inputProps={{ "data-testid": "task-priority-select" }}
+              fullWidth
+            >
+              <MenuItem value="low">Low</MenuItem>
+              <MenuItem value="medium">Medium</MenuItem>
+              <MenuItem value="high">High</MenuItem>
+            </TextField>
+            {validationError ? (
+              <Typography variant="body2" color="error" data-testid="task-validation-error">
+                {validationError}
+              </Typography>
+            ) : null}
+            <Stack direction="row" spacing={1}>
+              <Button variant="contained" onClick={handleSaveTask} data-testid="task-save-button">
+                Save
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => {
+                  resetForm();
+                  setIsFormVisible(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </Stack>
+          </Stack>
+        </Paper>
+      ) : null}
 
       {filteredTasks.length === 0 ? (
         <Typography variant="body2" color="text.secondary" data-testid="tasks-empty-state">
@@ -110,6 +309,45 @@ export default function TasksList() {
                     }
                     data-testid={`task-priority-${task.id}`}
                   />
+                </Stack>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => handleEditStart(task)}
+                    data-testid={`task-edit-${task.id}`}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="error"
+                    onClick={() => handleDeleteTask(task.id)}
+                    data-testid={`task-delete-${task.id}`}
+                  >
+                    Delete
+                  </Button>
+                  {task.status === "active" ? (
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      color="success"
+                      onClick={() => handleToggleTaskStatus(task.id)}
+                      data-testid={`task-complete-${task.id}`}
+                    >
+                      Complete
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleToggleTaskStatus(task.id)}
+                      data-testid={`task-reopen-${task.id}`}
+                    >
+                      Reopen
+                    </Button>
+                  )}
                 </Stack>
               </Stack>
             </Paper>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Typography } from "@mui/material";
 import PageContainer from "@/components/page-container";
+import TasksList from "@/components/tasks-list";
 
 export const metadata: Metadata = {
   title: "Tasks | EVAISYS Testing Lab",
@@ -11,12 +11,10 @@ export default function TasksPage() {
   return (
     <PageContainer
       title="Tasks"
-      description="Placeholder section for the future task CRUD workflow."
+      description="Demo task list foundation for the upcoming task CRUD workflow."
       testId="tasks"
     >
-      <Typography variant="body2" color="text.secondary">
-        Task listing, create, update, and delete interactions will be added later.
-      </Typography>
+      <TasksList />
     </PageContainer>
   );
 }

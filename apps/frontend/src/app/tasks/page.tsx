@@ -4,14 +4,14 @@ import TasksList from "@/components/tasks-list";
 
 export const metadata: Metadata = {
   title: "Tasks | EVAISYS Testing Lab",
-  description: "Placeholder page for the future task CRUD workflow.",
+  description: "Task management page for CRUD flows, form validation, and status tracking scenarios.",
 };
 
 export default function TasksPage() {
   return (
     <PageContainer
       title="Tasks"
-      description="Demo task list foundation for the upcoming task CRUD workflow."
+      description="Manage demo tasks with create, edit, delete, and completion workflows."
       testId="tasks"
     >
       <TasksList />

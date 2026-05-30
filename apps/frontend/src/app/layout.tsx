@@ -5,7 +5,8 @@ import AppShell from "@/layouts/app-shell";
 
 export const metadata: Metadata = {
   title: "EVAISYS Testing Lab",
-  description: "Controlled testing application foundation",
+  description:
+    "Controlled application for frontend/backend testing, automation workflows, and QA scenario validation.",
 };
 
 type RootLayoutProps = {

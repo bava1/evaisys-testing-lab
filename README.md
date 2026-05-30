@@ -1,88 +1,55 @@
 # EVAISYS Testing Lab
 
-EVAISYS Testing Lab is an AI-assisted QA workflow demonstration project.
+EVAISYS Testing Lab is a controlled web application for practical frontend/backend testing, Playwright automation, and AI-assisted testing workflows.
 
-Reactex is used as the application under test, while EVAISYS is used as the AI QA Assistant.
+## Stack
 
-Current stage: project foundation and QA documentation.
+- Frontend: Next.js 15, React 18, TypeScript, MUI
+- Backend: FastAPI, Pydantic, Uvicorn
+- Automation: Playwright test scenarios and supporting test documentation
 
-## Quick Start
+## Implemented Modules
 
-1. Clone repository
+- Authentication
+- Protected Routes
+- Tasks CRUD
+- Requests Workflow
+- Articles Search
+- Contacts & Feedback
 
-2. Run setup
+## Local Run
+
+1. Install root dependencies:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/setup.ps1
+npm install
 ```
 
-3. Run project
-
-```powershell
-npm run dev
-```
-
-4. URLs
-
-Frontend: `http://localhost:3000`
-
-Backend: `http://127.0.0.1:8000`
-
-Swagger: `http://127.0.0.1:8000/docs`
-
-## Local Development
-
-### Backend setup
+2. Prepare backend virtual environment and Python dependencies:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/setup-backend.ps1
 ```
 
-### Backend run
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/run-backend.ps1
-```
-
-### Dev environment
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/dev.ps1
-```
-
-### Swagger
-
-`http://127.0.0.1:8000/docs`
-
-### Health endpoint
-
-`http://127.0.0.1:8000/health`
-
-## Unified Development Workflow
-
-### Frontend setup
-
-```powershell
-cd apps/frontend
-npm install
-```
-
-### Root setup
-
-```powershell
-npm install
-```
-
-### Run full project
+3. Run frontend + backend together:
 
 ```powershell
 npm run dev
 ```
 
-### URLs
+4. Open:
+- Frontend: `http://localhost:3000`
+- Backend API: `http://127.0.0.1:8000`
+- Swagger: `http://127.0.0.1:8000/docs`
+- Health: `http://127.0.0.1:8000/health`
 
-Frontend: `http://localhost:3000`
+## Project Structure
 
-Backend: `http://127.0.0.1:8000`
-
-Swagger: `http://127.0.0.1:8000/docs`
+```text
+apps/
+  frontend/   # Next.js application under test
+  backend/    # FastAPI backend for API/UI integration scenarios
+docs/         # Testing and project documentation
+scripts/      # Local setup and run scripts
+tests/        # Automation tests (Playwright and related assets)
+```

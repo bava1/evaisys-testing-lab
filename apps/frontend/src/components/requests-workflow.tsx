@@ -54,7 +54,7 @@ const demoRequests: DemoRequest[] = [
     id: 3,
     title: "Missing article category",
     requester: "Content Reviewer",
-    description: "Articles page should display category tags in the future content workflow.",
+    description: "Articles page should display category tags in the content workflow.",
     status: "resolved",
     priority: "low",
     createdAt: "2026-05-22",

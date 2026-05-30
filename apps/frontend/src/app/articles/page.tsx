@@ -4,14 +4,14 @@ import ArticlesSection from "@/components/articles-section";
 
 export const metadata: Metadata = {
   title: "Articles | EVAISYS Testing Lab",
-  description: "Placeholder page for the future knowledge and articles section.",
+  description: "Articles page for search, filtering, and content exploration testing scenarios.",
 };
 
 export default function ArticlesPage() {
   return (
     <PageContainer
       title="Articles"
-      description="Demo articles search and filter section for UI and E2E testing scenarios."
+      description="Explore demo articles with keyword and category filters for search behavior validation."
       testId="articles"
     >
       <ArticlesSection />

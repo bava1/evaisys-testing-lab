@@ -4,14 +4,14 @@ import ContactsFeedback from "@/components/contacts-feedback";
 
 export const metadata: Metadata = {
   title: "Contact | EVAISYS Testing Lab",
-  description: "Placeholder page for the future contact form workflow.",
+  description: "Contacts and feedback page for search, form validation, and submission workflow testing.",
 };
 
 export default function ContactPage() {
   return (
     <PageContainer
       title="Contact"
-      description="Demo contacts and feedback section for UI and E2E testing scenarios."
+      description="Review contact cards and submit feedback to validate input rules and error handling."
       testId="contact"
     >
       <ContactsFeedback />

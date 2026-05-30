@@ -4,14 +4,14 @@ import LoginForm from "@/components/login-form";
 
 export const metadata: Metadata = {
   title: "Login | EVAISYS Testing Lab",
-  description: "Placeholder page for the future demo login workflow.",
+  description: "Demo authentication page used to validate login and protected access workflows.",
 };
 
 export default function LoginPage() {
   return (
     <PageContainer
       title="Login"
-      description="Placeholder section for the future demo login flow."
+      description="Use demo credentials to validate authentication behavior and protected route access."
       testId="login"
     >
       <LoginForm />

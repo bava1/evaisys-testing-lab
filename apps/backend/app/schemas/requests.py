@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Literal
 
 
-RequestStatus = Literal["new", "in_progress", "resolved"]
+RequestStatus = Literal["new", "in-progress", "resolved", "rejected"]
 RequestPriority = Literal["low", "medium", "high"]
 
 

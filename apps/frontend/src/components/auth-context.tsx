@@ -24,9 +24,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const storedValue = window.localStorage.getItem(DEMO_AUTH_STORAGE_KEY);
-    setIsAuthenticated(storedValue === "true");
-    setIsReady(true);
+    try {
+      const storedValue = window.localStorage.getItem(DEMO_AUTH_STORAGE_KEY);
+      setIsAuthenticated(storedValue === "true");
+    } catch {
+      setIsAuthenticated(false);
+    } finally {
+      setIsReady(true);
+    }
   }, []);
 
   const login = (username: string, password: string): boolean => {

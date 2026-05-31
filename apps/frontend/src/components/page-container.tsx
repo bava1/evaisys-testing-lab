@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 type PageContainerProps = {
   title: string;
@@ -19,14 +19,16 @@ export default function PageContainer({
         <Typography variant="h4" component="h1" gutterBottom data-testid={`${testId}-page-title`}>
           {title}
         </Typography>
-        <Typography variant="body1" color="text.secondary" data-testid={`${testId}-page-description`}>
-          {description}
-        </Typography>
+        {description ? (
+          <Typography variant="body1" color="text.secondary" data-testid={`${testId}-page-description`}>
+            {description}
+          </Typography>
+        ) : null}
       </Box>
 
-      <Paper variant="outlined" sx={{ p: 3 }} data-testid={`${testId}-page-content`}>
+      <Box sx={{ p: 0 }} data-testid={`${testId}-page-content`}>
         {children}
-      </Paper>
+      </Box>
     </Stack>
   );
 }

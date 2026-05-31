@@ -37,6 +37,8 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-backend.ps1
 npm run dev
 ```
 
+`npm run dev` automatically frees dev ports `3000` and `8000` from stale local processes before startup.
+
 4. Open:
 - Frontend: `http://localhost:3000`
 - Backend API: `http://127.0.0.1:8000`

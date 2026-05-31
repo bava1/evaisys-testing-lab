@@ -68,6 +68,54 @@ const demoRequests: DemoRequest[] = [
     priority: "medium",
     createdAt: "2026-05-21",
   },
+  {
+    id: 5,
+    title: "Search filter does not reset",
+    requester: "QA Engineer",
+    description: "Search filters remain applied after navigating back from another section.",
+    status: "new",
+    priority: "medium",
+    createdAt: "2026-05-23",
+  },
+  {
+    id: 6,
+    title: "Article category mismatch",
+    requester: "Content Manager",
+    description:
+      "Some knowledge base articles appear under an unexpected category during filtering.",
+    status: "in-progress",
+    priority: "low",
+    createdAt: "2026-05-22",
+  },
+  {
+    id: 7,
+    title: "Feedback form success state issue",
+    requester: "Product Owner",
+    description: "Success notification remains visible after a new invalid feedback attempt.",
+    status: "new",
+    priority: "medium",
+    createdAt: "2026-05-21",
+  },
+  {
+    id: 8,
+    title: "Request details show outdated status",
+    requester: "Test Automation Engineer",
+    description:
+      "Details dialog may display a previous workflow status after the request is updated.",
+    status: "resolved",
+    priority: "high",
+    createdAt: "2026-05-20",
+  },
+  {
+    id: 9,
+    title: "Contact search case sensitivity",
+    requester: "UX Reviewer",
+    description:
+      "Contact search behaves differently when role names are entered with lowercase letters.",
+    status: "rejected",
+    priority: "low",
+    createdAt: "2026-05-19",
+  },
 ];
 
 function getStatusLabel(status: RequestStatus): string {

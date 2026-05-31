@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Chip,
+  IconButton,
   MenuItem,
   Paper,
   Stack,
@@ -153,7 +154,6 @@ export default function TasksList() {
       const nextId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1;
 
       setTasks((prevTasks) => [
-        ...prevTasks,
         {
           id: nextId,
           title: trimmedTitle,
@@ -161,6 +161,7 @@ export default function TasksList() {
           priority: form.priority,
           status: "active",
         },
+        ...prevTasks,
       ]);
     }
 
@@ -283,70 +284,78 @@ export default function TasksList() {
         <Stack spacing={2}>
           {filteredTasks.map((task) => (
             <Paper key={task.id} variant="outlined" sx={{ p: 2 }} data-testid={`task-card-${task.id}`}>
-              <Stack spacing={1}>
-                <Typography variant="h6" data-testid={`task-title-${task.id}`}>
-                  {task.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {task.description}
-                </Typography>
-                <Stack direction="row" spacing={1}>
-                  <Chip
-                    label={`Status: ${task.status}`}
-                    size="small"
-                    color={task.status === "completed" ? "success" : "default"}
-                    data-testid={`task-status-${task.id}`}
-                  />
-                  <Chip
-                    label={`Priority: ${task.priority}`}
-                    size="small"
-                    color={
-                      task.priority === "high"
-                        ? "error"
-                        : task.priority === "medium"
-                          ? "warning"
-                          : "default"
-                    }
-                    data-testid={`task-priority-${task.id}`}
-                  />
+              <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+                <Stack spacing={1} sx={{ flex: 1 }}>
+                  <Typography variant="h6" data-testid={`task-title-${task.id}`}>
+                    {task.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {task.description}
+                  </Typography>
+                  <Stack direction="row" spacing={1}>
+                    <Chip
+                      label={`Status: ${task.status}`}
+                      size="small"
+                      color={task.status === "completed" ? "success" : "default"}
+                      data-testid={`task-status-${task.id}`}
+                    />
+                    <Chip
+                      label={`Priority: ${task.priority}`}
+                      size="small"
+                      color={
+                        task.priority === "high"
+                          ? "error"
+                          : task.priority === "medium"
+                            ? "warning"
+                            : "default"
+                      }
+                      data-testid={`task-priority-${task.id}`}
+                    />
+                  </Stack>
                 </Stack>
-                <Stack direction="row" spacing={1}>
-                  <Button
-                    variant="outlined"
+                <Stack direction="row" spacing={0.5}>
+                  <IconButton
                     size="small"
+                    color="primary"
+                    aria-label="edit task"
                     onClick={() => handleEditStart(task)}
                     data-testid={`task-edit-${task.id}`}
+                    sx={{ fontSize: "1.6rem" }}
                   >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
+                    ✎
+                  </IconButton>
+                  <IconButton
                     size="small"
                     color="error"
+                    aria-label="delete task"
                     onClick={() => handleDeleteTask(task.id)}
                     data-testid={`task-delete-${task.id}`}
+                    sx={{ fontSize: "1.6rem" }}
                   >
-                    Delete
-                  </Button>
+                    🗑
+                  </IconButton>
                   {task.status === "active" ? (
-                    <Button
-                      variant="outlined"
+                    <IconButton
                       size="small"
                       color="success"
+                      aria-label="complete task"
                       onClick={() => handleToggleTaskStatus(task.id)}
                       data-testid={`task-complete-${task.id}`}
+                      sx={{ fontSize: "1.6rem" }}
                     >
-                      Complete
-                    </Button>
+                      ✓
+                    </IconButton>
                   ) : (
-                    <Button
-                      variant="outlined"
+                    <IconButton
                       size="small"
+                      color="primary"
+                      aria-label="reopen task"
                       onClick={() => handleToggleTaskStatus(task.id)}
                       data-testid={`task-reopen-${task.id}`}
+                      sx={{ fontSize: "1.6rem" }}
                     >
-                      Reopen
-                    </Button>
+                      ↺
+                    </IconButton>
                   )}
                 </Stack>
               </Stack>

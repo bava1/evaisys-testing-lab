@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -50,11 +51,18 @@ export default function AppHeader() {
   };
 
   return (
-    <AppBar position="static" color="primary" data-testid="app-header">
+    <AppBar position="fixed" color="primary" data-testid="app-header">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
-        <Typography variant="h6" sx={{ mr: 2, whiteSpace: "nowrap" }}>
-          EVAISYS Testing Lab
-        </Typography>
+        <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
+          <Image
+            src="/Logo.png"
+            alt="EVAISYS Testing Lab"
+            width={320}
+            height={95}
+            priority
+            style={{ height: "48.4px", width: "auto", transform: "translateY(5px)" }}
+          />
+        </Link>
 
         <Box
           data-testid="desktop-navigation"

@@ -89,6 +89,56 @@ const demoArticles: DemoArticle[] = [
     author: "Ivan Horak",
     publishedAt: "2026-05-08",
   },
+  {
+    id: 7,
+    title: "AI-Assisted Test Case Generation",
+    category: "AI",
+    summary: "Practical approaches to generating structured test cases with AI assistance.",
+    content:
+      "Explains how AI tools can accelerate test design while keeping human review in the quality loop.",
+    author: "Petr Vacek",
+    publishedAt: "2026-05-14",
+  },
+  {
+    id: 8,
+    title: "Managing Regression Suites at Scale",
+    category: "QA",
+    summary: "Techniques for maintaining large regression suites without excessive execution time.",
+    content:
+      "Covers suite organization, prioritization, and balancing smoke versus full regression coverage.",
+    author: "Anna Novak",
+    publishedAt: "2026-05-12",
+  },
+  {
+    id: 9,
+    title: "Backend Contract Validation Essentials",
+    category: "Testing",
+    summary: "Common strategies for validating API contracts between frontend and backend systems.",
+    content:
+      "Introduces schema validation, status code verification, and contract consistency checks.",
+    author: "Jakub Sramek",
+    publishedAt: "2026-05-10",
+  },
+  {
+    id: 10,
+    title: "Building Effective Test Data Sets",
+    category: "Automation",
+    summary: "Guidelines for creating reusable and maintainable automated testing data.",
+    content:
+      "Discusses isolation, repeatability, and avoiding hidden dependencies between tests.",
+    author: "Milan Horak",
+    publishedAt: "2026-05-08",
+  },
+  {
+    id: 11,
+    title: "Modern Accessibility Testing Practices",
+    category: "QA",
+    summary: "An introduction to accessibility validation within modern web applications.",
+    content:
+      "Reviews keyboard navigation, semantic markup, labels, and automated accessibility tooling.",
+    author: "Maria Ivanova",
+    publishedAt: "2026-05-06",
+  },
 ];
 
 export default function ArticlesSection() {
@@ -147,30 +197,32 @@ export default function ArticlesSection() {
         <Stack spacing={2}>
           {filteredArticles.map((article) => (
             <Paper key={article.id} variant="outlined" sx={{ p: 2 }} data-testid={`article-card-${article.id}`}>
-              <Stack spacing={1.5}>
-                <Typography variant="h6" data-testid={`article-title-${article.id}`}>
-                  {article.title}
-                </Typography>
-                <Chip
-                  label={article.category}
-                  size="small"
-                  sx={{ alignSelf: "flex-start" }}
-                  data-testid={`article-category-${article.id}`}
-                />
-                <Typography variant="body2" color="text.secondary">
-                  {article.summary}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  Author: {article.author}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  Published At: {article.publishedAt}
-                </Typography>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={2} justifyContent="space-between">
+                <Stack spacing={1.5} sx={{ flex: 1 }}>
+                  <Typography variant="h6" data-testid={`article-title-${article.id}`}>
+                    {article.title}
+                  </Typography>
+                  <Chip
+                    label={article.category}
+                    size="small"
+                    sx={{ alignSelf: "flex-start" }}
+                    data-testid={`article-category-${article.id}`}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    {article.summary}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Author: {article.author}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Published At: {article.publishedAt}
+                  </Typography>
+                </Stack>
                 <Button
                   variant="outlined"
                   onClick={() => setSelectedArticle(article)}
                   data-testid={`article-details-${article.id}`}
-                  sx={{ alignSelf: "flex-start" }}
+                  sx={{ alignSelf: { xs: "flex-start", md: "flex-start" } }}
                 >
                   View Details
                 </Button>

@@ -14,7 +14,7 @@ def get_tasks() -> list[Task]:
 @router.post("", response_model=Task, status_code=status.HTTP_201_CREATED)
 def create_task(payload: TaskCreate) -> Task:
     task = Task(id=tasks_store.next_task_id, title=payload.title, completed=False)
-    tasks_store.tasks.append(task)
+    tasks_store.tasks.insert(0, task)
     tasks_store.next_task_id += 1
     return task
 

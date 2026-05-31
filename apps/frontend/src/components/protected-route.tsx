@@ -5,8 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Box, Typography } from "@mui/material";
 import { useAuth } from "@/components/auth-context";
 
-const publicRoutes = ["/login"];
-
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
@@ -16,17 +14,23 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const { isAuthenticated, isReady } = useAuth();
 
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const normalizedPathname =
+    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const isPublicRoute = normalizedPathname === "/login";
 
   useEffect(() => {
-    if (!isReady) {
+    if (isPublicRoute || !isReady) {
       return;
     }
 
-    if (!isPublicRoute && !isAuthenticated) {
+    if (!isAuthenticated) {
       router.replace("/login");
     }
   }, [isAuthenticated, isPublicRoute, isReady, router]);
+
+  if (isPublicRoute) {
+    return <Box data-testid="protected-route">{children}</Box>;
+  }
 
   if (!isReady) {
     return (
@@ -36,7 +40,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (!isPublicRoute && !isAuthenticated) {
+  if (!isAuthenticated) {
     return null;
   }
 

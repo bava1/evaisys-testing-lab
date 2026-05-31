@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <PageContainer
       title="Home"
-      description="EVAISYS Testing Lab is a controlled testing application for practical frontend, backend, and automation workflows."
+      description=""
       testId="home"
     >
       <HomeDashboard />

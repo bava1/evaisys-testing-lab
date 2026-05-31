@@ -59,14 +59,16 @@ export default function HomeDashboard() {
         <Stack spacing={2}>
           {moduleCards.map((module) => (
             <Paper key={module.key} variant="outlined" sx={{ p: 2 }} data-testid={module.testId}>
-              <Stack spacing={1.5}>
-                <Typography variant="h6">{module.title}</Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                  {module.points.map((point) => (
-                    <Chip key={`${module.key}-${point}`} label={point} size="small" />
-                  ))}
+              <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" spacing={2}>
+                <Stack spacing={1.5} sx={{ flex: 1 }}>
+                  <Typography variant="h6">{module.title}</Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                    {module.points.map((point) => (
+                      <Chip key={`${module.key}-${point}`} label={point} size="small" />
+                    ))}
+                  </Stack>
                 </Stack>
-                <Box>
+                <Box sx={{ alignSelf: { xs: "flex-start", md: "flex-start" } }}>
                   <Button
                     component={Link}
                     href={module.href}

@@ -14,4 +14,18 @@ export const appTheme = createTheme({
       paper: "#ffffff",
     },
   },
+  components: {
+    MuiPaper: {
+      variants: [
+        {
+          props: { variant: "outlined" },
+          style: {
+            border: "1px solid rgba(21, 101, 192, 0.12)",
+            borderRadius: 10,
+            boxShadow: "0 2px 10px rgba(15, 23, 42, 0.06)",
+          },
+        },
+      ],
+    },
+  },
 });

@@ -7,7 +7,7 @@ import process from "node:process";
 const rootDir = process.cwd();
 const frontendPort = 3000;
 const backendPort = 8000;
-const backendDir = path.join(rootDir, "apps", "backend");
+const backendRunner = path.join(rootDir, "scripts", "run-backend.ps1");
 
 let frontendProcess = null;
 let backendProcess = null;
@@ -216,27 +216,23 @@ async function main() {
   await ensurePortAvailableOrHeal(frontendPort);
   await ensurePortAvailableOrHeal(backendPort);
 
-  if (!path.isAbsolute(backendDir) || !fs.existsSync(backendDir)) {
-    throw new Error(`Backend cwd is invalid: ${backendDir}`);
+  if (!path.isAbsolute(backendRunner) || !fs.existsSync(backendRunner)) {
+    throw new Error(`Backend runner is invalid: ${backendRunner}`);
   }
 
   const frontendLaunch = createCommand("npm", ["--prefix", "apps/frontend", "run", "dev"]);
-  const backendLaunch = createCommand("python", [
-    "-m",
-    "uvicorn",
-    "app.main:app",
-    "--host",
-    "127.0.0.1",
-    "--port",
-    "8000",
-    "--reload",
+  const backendLaunch = createCommand("powershell", [
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    backendRunner,
   ]);
 
   frontendProcess = runCommand(frontendLaunch.command, frontendLaunch.args, {
     cwd: rootDir,
   });
 
-  backendProcess = runCommand(backendLaunch.command, backendLaunch.args, { cwd: backendDir });
+  backendProcess = runCommand(backendLaunch.command, backendLaunch.args, { cwd: rootDir });
 
   attachLifecycle("frontend", frontendProcess);
   attachLifecycle("backend", backendProcess);

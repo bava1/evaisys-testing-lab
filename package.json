@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "node scripts/dev-orchestrator.mjs",
     "dev:frontend": "npm --prefix apps/frontend run dev",
-    "dev:backend": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1"
+    "dev:backend": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
+    "test:e2e": "npm --prefix playwright-tests run test:e2e",
+    "test:e2e:ui": "npm --prefix playwright-tests run test:e2e:ui",
+    "test:e2e:headed": "npm --prefix playwright-tests run test:e2e:headed",
+    "test:e2e:report": "npm --prefix playwright-tests run test:e2e:report"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"

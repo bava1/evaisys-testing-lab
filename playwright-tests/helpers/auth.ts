@@ -10,7 +10,7 @@ export async function loginAsAdmin(page: Page) {
   await page.getByTestId("login-username-input").fill("admin");
   await page.getByTestId("login-password-input").fill("123456");
   await page.getByTestId("login-submit-button").click();
-  await expect(page.getByTestId("header-logout-button")).toBeVisible();
+  await expect(page.getByTestId("app-shell")).toBeVisible();
 }
 
 export async function logout(page: Page) {

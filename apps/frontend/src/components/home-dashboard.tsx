@@ -7,32 +7,32 @@ const moduleCards = [
     title: "Tasks",
     points: ["CRUD operations", "Validation", "Filtering"],
     href: "/tasks",
-    testId: "dashboard-module-tasks",
-    openTestId: "dashboard-open-tasks",
+    testId: "dashboard-card-tasks",
+    openTestId: "open-tasks",
   },
   {
     key: "requests",
     title: "Requests",
     points: ["Workflow management", "Status transitions", "Modal interactions"],
     href: "/requests",
-    testId: "dashboard-module-requests",
-    openTestId: "dashboard-open-requests",
+    testId: "dashboard-card-requests",
+    openTestId: "open-requests",
   },
   {
     key: "articles",
     title: "Articles",
     points: ["Search", "Filtering", "Content display"],
     href: "/articles",
-    testId: "dashboard-module-articles",
-    openTestId: "dashboard-open-articles",
+    testId: "dashboard-card-articles",
+    openTestId: "open-articles",
   },
   {
     key: "contacts",
     title: "Contacts",
     points: ["Search", "Form validation", "Feedback workflow"],
     href: "/contact",
-    testId: "dashboard-module-contacts",
-    openTestId: "dashboard-open-contacts",
+    testId: "dashboard-card-contact",
+    openTestId: "open-contact",
   },
 ];
 
@@ -47,7 +47,7 @@ const coverageItems = [
 
 export default function HomeDashboard() {
   return (
-    <Stack spacing={3} data-testid="dashboard-page">
+    <Stack spacing={3} data-testid="home-dashboard">
       <Paper variant="outlined" sx={{ p: 2 }} data-testid="dashboard-overview">
         <Typography variant="body1">
           EVAISYS Testing Lab is a controlled application designed to demonstrate UI, workflow and
@@ -55,10 +55,10 @@ export default function HomeDashboard() {
         </Typography>
       </Paper>
 
-      <Box data-testid="dashboard-modules">
+      <Box data-testid="dashboard-cards">
         <Stack spacing={2}>
           {moduleCards.map((module) => (
-            <Paper key={module.key} variant="outlined" sx={{ p: 2 }} data-testid={module.testId}>
+            <Paper key={module.key} variant="outlined" sx={{ p: 2 }} data-testid="dashboard-card">
               <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" spacing={2}>
                 <Stack spacing={1.5} sx={{ flex: 1 }}>
                   <Typography variant="h6">{module.title}</Typography>

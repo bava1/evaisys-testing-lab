@@ -16,11 +16,31 @@ import {
 import { useAuth } from "@/components/auth-context";
 
 const navItems = [
-  { href: "/", label: "Home", testId: "nav-link-home" },
-  { href: "/tasks", label: "Tasks", testId: "nav-link-tasks" },
-  { href: "/requests", label: "Requests", testId: "nav-link-requests" },
-  { href: "/articles", label: "Articles", testId: "nav-link-articles" },
-  { href: "/contact", label: "Contact", testId: "nav-link-contact" },
+  { href: "/", label: "Home", desktopTestId: "nav-home-desktop", mobileTestId: "nav-home-mobile" },
+  {
+    href: "/tasks",
+    label: "Tasks",
+    desktopTestId: "nav-tasks-desktop",
+    mobileTestId: "nav-tasks-mobile",
+  },
+  {
+    href: "/requests",
+    label: "Requests",
+    desktopTestId: "nav-requests-desktop",
+    mobileTestId: "nav-requests-mobile",
+  },
+  {
+    href: "/articles",
+    label: "Articles",
+    desktopTestId: "nav-articles-desktop",
+    mobileTestId: "nav-articles-mobile",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+    desktopTestId: "nav-contact-desktop",
+    mobileTestId: "nav-contact-mobile",
+  },
 ];
 
 export default function AppHeader() {
@@ -83,7 +103,7 @@ export default function AppHeader() {
               color="inherit"
               component={Link}
               href={item.href}
-              data-testid={item.testId}
+              data-testid={item.desktopTestId}
               sx={{
                 borderBottom: isRouteActive(item.href)
                   ? "2px solid rgba(255, 255, 255, 0.95)"
@@ -118,18 +138,18 @@ export default function AppHeader() {
           edge="end"
           aria-label="open navigation"
           onClick={handleMobileNavOpen}
-          data-testid="mobile-navigation-toggle"
+          data-testid="mobile-navigation-menu-button"
           sx={{ display: { xs: "inline-flex", md: "none" }, ml: "auto" }}
         >
           <Typography variant="button">Menu</Typography>
         </IconButton>
       </Toolbar>
 
-      <Drawer
-        anchor="right"
-        open={isMobileNavOpen}
-        onClose={handleMobileNavClose}
-        data-testid="mobile-navigation-drawer"
+        <Drawer
+          anchor="right"
+          open={isMobileNavOpen}
+          onClose={handleMobileNavClose}
+          data-testid="mobile-navigation-drawer"
       >
         <Box
           sx={{ width: 280, p: 2, display: "flex", flexDirection: "column", gap: 1 }}
@@ -148,7 +168,7 @@ export default function AppHeader() {
               onClick={handleMobileNavClose}
               variant={isRouteActive(item.href) ? "contained" : "text"}
               color={isRouteActive(item.href) ? "primary" : "inherit"}
-              data-testid={item.testId}
+              data-testid={item.mobileTestId}
               sx={{ justifyContent: "flex-start" }}
             >
               {item.label}

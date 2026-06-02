@@ -215,13 +215,13 @@ export default function TasksList() {
             Completed
           </ToggleButton>
         </ToggleButtonGroup>
-        <Button variant="contained" onClick={handleCreateStart} data-testid="task-create-button">
+        <Button variant="contained" onClick={handleCreateStart} data-testid="create-task-button">
           Add Task
         </Button>
       </Stack>
 
       {isFormVisible ? (
-        <Paper variant="outlined" sx={{ p: 2 }}>
+        <Paper variant="outlined" sx={{ p: 2 }} data-testid="task-form-container">
           <Stack spacing={2}>
             <TextField
               label="Title"
@@ -268,6 +268,7 @@ export default function TasksList() {
                   resetForm();
                   setIsFormVisible(false);
                 }}
+                data-testid="task-cancel-button"
               >
                 Cancel
               </Button>
@@ -281,9 +282,9 @@ export default function TasksList() {
           No tasks found for selected filter.
         </Typography>
       ) : (
-        <Stack spacing={2}>
+        <Stack spacing={2} data-testid="tasks-cards-list">
           {filteredTasks.map((task) => (
-            <Paper key={task.id} variant="outlined" sx={{ p: 2 }} data-testid={`task-card-${task.id}`}>
+            <Paper key={task.id} variant="outlined" sx={{ p: 2 }} data-testid="task-card">
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
                 <Stack spacing={1} sx={{ flex: 1 }}>
                   <Typography variant="h6" data-testid={`task-title-${task.id}`}>

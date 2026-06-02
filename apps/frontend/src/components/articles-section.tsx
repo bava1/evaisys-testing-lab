@@ -194,12 +194,12 @@ export default function ArticlesSection() {
           No articles found for current search criteria.
         </Typography>
       ) : (
-        <Stack spacing={2}>
+        <Stack spacing={2} data-testid="articles-list">
           {filteredArticles.map((article) => (
-            <Paper key={article.id} variant="outlined" sx={{ p: 2 }} data-testid={`article-card-${article.id}`}>
+            <Paper key={article.id} variant="outlined" sx={{ p: 2 }} data-testid="article-card">
               <Stack direction={{ xs: "column", md: "row" }} spacing={2} justifyContent="space-between">
                 <Stack spacing={1.5} sx={{ flex: 1 }}>
-                  <Typography variant="h6" data-testid={`article-title-${article.id}`}>
+                  <Typography variant="h6" data-testid="article-title">
                     {article.title}
                   </Typography>
                   <Chip
@@ -211,17 +211,17 @@ export default function ArticlesSection() {
                   <Typography variant="body2" color="text.secondary">
                     {article.summary}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" color="text.secondary" data-testid="article-metadata">
                     Author: {article.author}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" color="text.secondary" data-testid="article-metadata">
                     Published At: {article.publishedAt}
                   </Typography>
                 </Stack>
                 <Button
                   variant="outlined"
                   onClick={() => setSelectedArticle(article)}
-                  data-testid={`article-details-${article.id}`}
+                  data-testid="article-details-button"
                   sx={{ alignSelf: { xs: "flex-start", md: "flex-start" } }}
                 >
                   View Details
@@ -245,10 +245,18 @@ export default function ArticlesSection() {
         <DialogContent dividers>
           {selectedArticle ? (
             <Stack spacing={1.5}>
-              <Typography variant="body2">Category: {selectedArticle.category}</Typography>
-              <Typography variant="body2">Author: {selectedArticle.author}</Typography>
-              <Typography variant="body2">Published At: {selectedArticle.publishedAt}</Typography>
-              <Typography variant="body1">{selectedArticle.content}</Typography>
+              <Typography variant="body2" data-testid="article-metadata">
+                Category: {selectedArticle.category}
+              </Typography>
+              <Typography variant="body2" data-testid="article-metadata">
+                Author: {selectedArticle.author}
+              </Typography>
+              <Typography variant="body2" data-testid="article-metadata">
+                Published At: {selectedArticle.publishedAt}
+              </Typography>
+              <Typography variant="body1" data-testid="article-content">
+                {selectedArticle.content}
+              </Typography>
             </Stack>
           ) : null}
         </DialogContent>

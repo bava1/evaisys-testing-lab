@@ -198,9 +198,9 @@ export default function RequestsWorkflow() {
           No requests found for selected filters.
         </Typography>
       ) : (
-        <Stack spacing={2}>
+        <Stack spacing={2} data-testid="requests-list">
           {filteredRequests.map((request) => (
-            <Paper key={request.id} variant="outlined" sx={{ p: 2 }} data-testid={`request-card-${request.id}`}>
+            <Paper key={request.id} variant="outlined" sx={{ p: 2 }} data-testid="request-card">
               <Stack spacing={1.5}>
                 <Typography variant="h6" data-testid={`request-title-${request.id}`}>
                   {request.title}
@@ -251,7 +251,7 @@ export default function RequestsWorkflow() {
                   <Button
                     variant="outlined"
                     onClick={() => setSelectedRequest(request)}
-                    data-testid={`request-details-${request.id}`}
+                    data-testid="request-details-button"
                   >
                     Details
                   </Button>
@@ -262,7 +262,7 @@ export default function RequestsWorkflow() {
                     onChange={(event) =>
                       handleStatusUpdate(request.id, event.target.value as RequestStatus)
                     }
-                    data-testid={`request-status-select-${request.id}`}
+                    data-testid="request-status-change-control"
                     sx={{ minWidth: 180 }}
                   >
                     <MenuItem value="new">New</MenuItem>
@@ -290,11 +290,21 @@ export default function RequestsWorkflow() {
         <DialogContent dividers>
           {selectedRequest ? (
             <Stack spacing={1.5}>
-              <Typography variant="body2">Requester: {selectedRequest.requester}</Typography>
-              <Typography variant="body2">Description: {selectedRequest.description}</Typography>
-              <Typography variant="body2">Status: {getStatusLabel(selectedRequest.status)}</Typography>
-              <Typography variant="body2">Priority: {getPriorityLabel(selectedRequest.priority)}</Typography>
-              <Typography variant="body2">Created At: {selectedRequest.createdAt}</Typography>
+              <Typography variant="body2" data-testid="request-details-requester">
+                Requester: {selectedRequest.requester}
+              </Typography>
+              <Typography variant="body2" data-testid="request-details-description">
+                Description: {selectedRequest.description}
+              </Typography>
+              <Typography variant="body2" data-testid="request-details-status">
+                Status: {getStatusLabel(selectedRequest.status)}
+              </Typography>
+              <Typography variant="body2" data-testid="request-details-priority">
+                Priority: {getPriorityLabel(selectedRequest.priority)}
+              </Typography>
+              <Typography variant="body2" data-testid="request-details-date">
+                Created At: {selectedRequest.createdAt}
+              </Typography>
             </Stack>
           ) : null}
         </DialogContent>

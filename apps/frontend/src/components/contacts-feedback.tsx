@@ -212,9 +212,9 @@ export default function ContactsFeedback() {
             No contacts found for current search.
           </Typography>
         ) : (
-          <Stack spacing={2}>
+          <Stack spacing={2} data-testid="contacts-list">
             {filteredContacts.map((contact) => (
-              <Paper key={contact.id} variant="outlined" sx={{ p: 2 }} data-testid={`contact-card-${contact.id}`}>
+              <Paper key={contact.id} variant="outlined" sx={{ p: 2 }} data-testid="contact-card">
                 <Stack direction="row" spacing={2} alignItems="flex-start">
                   <Avatar
                     src={contact.photo}
@@ -224,13 +224,13 @@ export default function ContactsFeedback() {
                     {contact.avatar}
                   </Avatar>
                   <Stack spacing={0.5}>
-                    <Typography variant="h6" data-testid={`contact-name-${contact.id}`}>
+                    <Typography variant="h6" data-testid="contact-name">
                       {contact.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" data-testid={`contact-role-${contact.id}`}>
+                    <Typography variant="body2" color="text.secondary" data-testid="contact-role">
                       {contact.role}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" data-testid="contact-email">
                       {contact.email}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -245,7 +245,7 @@ export default function ContactsFeedback() {
       </Stack>
 
       <Paper variant="outlined" sx={{ p: 2 }}>
-        <Box component="form" onSubmit={handleFeedbackSubmit} data-testid="feedback-form">
+        <Box component="form" onSubmit={handleFeedbackSubmit} data-testid="feedback-form-container">
           <Stack spacing={2}>
             <Typography variant="h6">Feedback</Typography>
             <TextField

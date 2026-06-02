@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Alert, Box, Button, Stack, TextField } from "@mui/material";
+import { ApiClientError } from "@/api/api-client";
 import { useAuth } from "@/components/auth-context";
 
 export default function LoginForm() {
@@ -12,8 +13,9 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
@@ -28,15 +30,30 @@ export default function LoginForm() {
       return;
     }
 
-    const isLoginSuccessful = login(username.trim(), password);
+    setIsSubmitting(true);
 
-    if (!isLoginSuccessful) {
-      setErrorMessage("Invalid credentials.");
-      return;
+    try {
+      await login(username.trim(), password);
+      setSuccessMessage("Demo login form validated.");
+      router.push("/");
+    } catch (error) {
+      if (error instanceof ApiClientError && error.status === 401) {
+        const backendMessage =
+          typeof error.body === "object" &&
+          error.body !== null &&
+          "detail" in error.body &&
+          typeof (error.body as { detail?: unknown }).detail === "string"
+            ? (error.body as { detail: string }).detail
+            : "";
+
+        setErrorMessage(backendMessage || "Invalid username or password.");
+        return;
+      }
+
+      setErrorMessage("Unable to sign in. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setSuccessMessage("Demo login form validated.");
-    router.push("/");
   };
 
   return (
@@ -59,7 +76,12 @@ export default function LoginForm() {
           required
           fullWidth
         />
-        <Button type="submit" variant="contained" data-testid="login-submit-button">
+        <Button
+          type="submit"
+          variant="contained"
+          data-testid="login-submit-button"
+          disabled={isSubmitting}
+        >
           Sign In
         </Button>
 

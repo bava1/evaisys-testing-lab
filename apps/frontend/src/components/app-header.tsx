@@ -46,27 +46,36 @@ export default function AppHeader() {
   };
 
   const handleLogout = () => {
+    handleMobileNavClose();
     logout();
     router.push("/login");
   };
 
   return (
     <AppBar position="fixed" color="primary" data-testid="app-header">
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
-        <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
-          <Image
-            src="/Logo.png"
-            alt="EVAISYS Testing Lab"
-            width={320}
-            height={95}
-            priority
-            style={{ height: "48.4px", width: "auto", transform: "translateY(5px)" }}
-          />
-        </Link>
+      <Toolbar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box sx={{ flexShrink: 0, lineHeight: 0 }}>
+          <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
+            <Image
+              src="/Logo.png"
+              alt="EVAISYS Testing Lab"
+              width={320}
+              height={95}
+              priority
+              style={{ height: "48.4px", width: "auto", transform: "translateY(5px)" }}
+            />
+          </Link>
+        </Box>
 
         <Box
           data-testid="desktop-navigation"
-          sx={{ display: { xs: "none", md: "flex" }, gap: 1, alignItems: "center" }}
+          sx={{
+            display: { xs: "none", md: "flex" },
+            gap: 1,
+            alignItems: "center",
+            flex: 1,
+            minWidth: 0,
+          }}
         >
           {navItems.map((item) => (
             <Button
@@ -90,10 +99,15 @@ export default function AppHeader() {
 
         <Box
           data-testid="auth-actions"
-          sx={{ display: { xs: "none", md: "flex" }, minWidth: 1, justifyContent: "flex-end" }}
+          sx={{
+            display: { xs: "none", md: "flex" },
+            ml: "auto",
+            flexShrink: 0,
+            alignItems: "center",
+          }}
         >
           {isReady && isAuthenticated ? (
-            <Button color="inherit" onClick={handleLogout} data-testid="auth-logout-button">
+            <Button color="inherit" onClick={handleLogout} data-testid="header-logout-button">
               Logout
             </Button>
           ) : null}
@@ -105,7 +119,7 @@ export default function AppHeader() {
           aria-label="open navigation"
           onClick={handleMobileNavOpen}
           data-testid="mobile-navigation-toggle"
-          sx={{ display: { xs: "inline-flex", md: "none" } }}
+          sx={{ display: { xs: "inline-flex", md: "none" }, ml: "auto" }}
         >
           <Typography variant="button">Menu</Typography>
         </IconButton>
@@ -140,6 +154,16 @@ export default function AppHeader() {
               {item.label}
             </Button>
           ))}
+          {isReady && isAuthenticated ? (
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              data-testid="mobile-logout-button"
+              sx={{ justifyContent: "flex-start" }}
+            >
+              Logout
+            </Button>
+          ) : null}
         </Box>
       </Drawer>
     </AppBar>

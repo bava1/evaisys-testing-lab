@@ -176,12 +176,12 @@ function attachLifecycle(name, child) {
 
 async function main() {
   async function ensurePortAvailableOrHeal(port) {
-    const available = await checkPortAvailable(port);
-    if (available) {
-      return;
-    }
-
     if (process.platform !== "win32") {
+      const available = await checkPortAvailable(port);
+      if (available) {
+        return;
+      }
+
       console.error(
         `Port ${port} is already in use. Automatic cleanup is currently implemented for Windows only.`
       );
@@ -190,8 +190,7 @@ async function main() {
 
     const pid = getListeningPidWindows(port);
     if (!pid) {
-      console.error(`[dev] Port ${port} is in use, but owning PID could not be resolved.`);
-      process.exit(1);
+      return;
     }
 
     console.log(`[dev] Port ${port} is in use by PID ${pid}. Stopping it...`);
@@ -202,8 +201,8 @@ async function main() {
     const start = Date.now();
 
     while (Date.now() - start < timeoutMs) {
-      const nowAvailable = await checkPortAvailable(port);
-      if (nowAvailable) {
+      const currentPid = getListeningPidWindows(port);
+      if (!currentPid) {
         console.log(`[dev] Port ${port} is now free.`);
         return;
       }

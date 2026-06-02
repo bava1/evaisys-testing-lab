@@ -1,17 +1,32 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { apiClient } from "@/api/api-client";
 
 type AuthContextValue = {
   isAuthenticated: boolean;
   isReady: boolean;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 };
 
-const DEMO_USERNAME = "admin";
-const DEMO_PASSWORD = "123456";
-const DEMO_AUTH_STORAGE_KEY = "evaisys-demo-authenticated";
+type AuthenticatedUser = {
+  username: string;
+  role: string;
+};
+
+type LoginResponse = {
+  success: boolean;
+  user: AuthenticatedUser;
+  token: string;
+};
+
+type StoredAuthState = {
+  token: string;
+  user: AuthenticatedUser;
+};
+
+const AUTH_STORAGE_KEY = "evaisys-demo-auth-state";
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -25,8 +40,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     try {
-      const storedValue = window.localStorage.getItem(DEMO_AUTH_STORAGE_KEY);
-      setIsAuthenticated(storedValue === "true");
+      const storedValue = window.localStorage.getItem(AUTH_STORAGE_KEY);
+
+      if (!storedValue) {
+        setIsAuthenticated(false);
+        return;
+      }
+
+      const parsedValue = JSON.parse(storedValue) as Partial<StoredAuthState>;
+      const hasValidAuthState =
+        typeof parsedValue.token === "string" &&
+        parsedValue.token.length > 0 &&
+        typeof parsedValue.user?.username === "string" &&
+        parsedValue.user.username.length > 0 &&
+        typeof parsedValue.user.role === "string" &&
+        parsedValue.user.role.length > 0;
+
+      setIsAuthenticated(hasValidAuthState);
     } catch {
       setIsAuthenticated(false);
     } finally {
@@ -34,19 +64,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
-  const login = (username: string, password: string): boolean => {
-    if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
-      setIsAuthenticated(true);
-      window.localStorage.setItem(DEMO_AUTH_STORAGE_KEY, "true");
-      return true;
-    }
+  const login = async (username: string, password: string): Promise<void> => {
+    const response = await apiClient.post<LoginResponse>("/auth/login", {
+      username,
+      password,
+    });
 
-    return false;
+    window.localStorage.setItem(
+      AUTH_STORAGE_KEY,
+      JSON.stringify({
+        token: response.token,
+        user: response.user,
+      } satisfies StoredAuthState)
+    );
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    window.localStorage.removeItem(DEMO_AUTH_STORAGE_KEY);
+    window.localStorage.removeItem(AUTH_STORAGE_KEY);
   };
 
   const value = useMemo(

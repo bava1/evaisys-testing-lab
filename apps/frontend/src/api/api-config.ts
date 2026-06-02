@@ -8,14 +8,18 @@ function normalizePath(path: string): string {
   return path.trim().replace(/^\/+/, "");
 }
 
-export function buildApiUrl(path: string): string {
-  const baseUrl = normalizeBaseUrl(appConfig.apiBaseUrl);
-
-  if (!baseUrl) {
-    throw new Error(
-      "NEXT_PUBLIC_API_BASE_URL is not configured. Set it to enable frontend API requests."
-    );
+function getFallbackApiBaseUrl(): string {
+  if (typeof window === "undefined") {
+    return "http://127.0.0.1:8000";
   }
+
+  const { protocol, hostname } = window.location;
+  const apiHost = hostname === "localhost" ? "127.0.0.1" : hostname;
+  return `${protocol}//${apiHost}:8000`;
+}
+
+export function buildApiUrl(path: string): string {
+  const baseUrl = normalizeBaseUrl(appConfig.apiBaseUrl || getFallbackApiBaseUrl());
 
   const normalizedPath = normalizePath(path);
 

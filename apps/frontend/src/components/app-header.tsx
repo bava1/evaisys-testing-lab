@@ -41,6 +41,12 @@ const navItems = [
     desktopTestId: "nav-contact-desktop",
     mobileTestId: "nav-contact-mobile",
   },
+  {
+    href: "/testing-lab",
+    label: "Testing Lab",
+    desktopTestId: "nav-testing-lab-desktop",
+    mobileTestId: "nav-testing-lab-mobile",
+  },
 ];
 
 export default function AppHeader() {

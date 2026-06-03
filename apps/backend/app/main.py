@@ -7,6 +7,7 @@ from app.api.contact import router as contact_router
 from app.api.health import router as health_router
 from app.api.requests import router as requests_router
 from app.api.tasks import router as tasks_router
+from app.api.testing import router as testing_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -29,3 +30,4 @@ app.include_router(tasks_router)
 app.include_router(requests_router)
 app.include_router(articles_router)
 app.include_router(contact_router)
+app.include_router(testing_router)

@@ -101,6 +101,10 @@ export default function TasksList() {
       return tasks;
     }
 
+    if (filter === "completed") {
+      return tasks.filter((task) => task.status === "active");
+    }
+
     return tasks.filter((task) => task.status === filter);
   }, [filter, tasks]);
 

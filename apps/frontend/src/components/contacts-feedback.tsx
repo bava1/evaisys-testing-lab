@@ -140,10 +140,6 @@ function validateFeedbackForm(form: FeedbackFormState): string | null {
     return "Email is required.";
   }
 
-  if (!trimmedEmail.includes("@")) {
-    return "Email must contain '@'.";
-  }
-
   if (!trimmedMessage) {
     return "Message is required.";
   }
@@ -186,8 +182,16 @@ export default function ContactsFeedback() {
     setSuccessMessage("");
 
     const error = validateFeedbackForm(feedbackForm);
+    const isEmptySubmit =
+      feedbackForm.name.trim().length === 0 &&
+      feedbackForm.email.trim().length === 0 &&
+      feedbackForm.message.trim().length === 0;
 
     if (error) {
+      if (isEmptySubmit) {
+        return;
+      }
+
       setValidationError(error);
       return;
     }

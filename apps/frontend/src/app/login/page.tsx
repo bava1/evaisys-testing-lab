@@ -19,7 +19,7 @@ export default function LoginPage() {
         px: 2,
       }}
     >
-      <Box sx={{ width: "100%", maxWidth: 520 }}>
+      <Box sx={{ width: "100%", maxWidth: 520, transform: "translateY(-50px)" }}>
         <PageContainer
           title="Login"
           description="Use demo credentials to validate authentication behavior and protected route access."

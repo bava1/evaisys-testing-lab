@@ -151,7 +151,7 @@ export default function RequestsWorkflow() {
         request.id === requestId
           ? {
               ...request,
-              status: nextStatus,
+              status: request.status,
             }
           : request
       )

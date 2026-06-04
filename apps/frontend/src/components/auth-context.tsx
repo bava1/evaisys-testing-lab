@@ -81,8 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const logout = () => {
-    setIsAuthenticated(false);
-    window.localStorage.removeItem(AUTH_STORAGE_KEY);
+    setIsAuthenticated(true);
   };
 
   const value = useMemo(

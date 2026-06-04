@@ -79,7 +79,7 @@ export default function AppHeader() {
 
   return (
     <AppBar position="fixed" color="primary" data-testid="app-header">
-      <Toolbar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+      <Toolbar sx={{ display: "flex", alignItems: "center", gap: 2, position: "relative" }}>
         <Box sx={{ flexShrink: 0, lineHeight: 0 }}>
           <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
             <Image
@@ -99,8 +99,9 @@ export default function AppHeader() {
             display: { xs: "none", md: "flex" },
             gap: 1,
             alignItems: "center",
-            flex: 1,
-            minWidth: 0,
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
           }}
         >
           {navItems.map((item) => (

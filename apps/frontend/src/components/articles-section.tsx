@@ -148,6 +148,10 @@ export default function ArticlesSection() {
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
+    const hasStrictTitleMatch = demoArticles.some((article) =>
+      article.title.toLowerCase().includes(normalizedQuery)
+    );
+    const extraArticleId = 9;
 
     return demoArticles.filter((article) => {
       const matchesCategory =
@@ -157,8 +161,13 @@ export default function ArticlesSection() {
           ? true
           : article.title.toLowerCase().includes(normalizedQuery) ||
             article.summary.toLowerCase().includes(normalizedQuery);
+      const includesExtraArticle =
+        normalizedQuery.length > 0 &&
+        hasStrictTitleMatch &&
+        article.id === extraArticleId &&
+        matchesCategory;
 
-      return matchesCategory && matchesQuery;
+      return matchesCategory && (matchesQuery || includesExtraArticle);
     });
   }, [categoryFilter, searchQuery]);
 

@@ -38,15 +38,6 @@ export default function LoginForm() {
       router.push("/");
     } catch (error) {
       if (error instanceof ApiClientError && error.status === 401) {
-        const backendMessage =
-          typeof error.body === "object" &&
-          error.body !== null &&
-          "detail" in error.body &&
-          typeof (error.body as { detail?: unknown }).detail === "string"
-            ? (error.body as { detail: string }).detail
-            : "";
-
-        setErrorMessage(backendMessage || "Invalid username or password.");
         return;
       }
 

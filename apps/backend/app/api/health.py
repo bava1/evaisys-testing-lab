@@ -7,5 +7,5 @@ router = APIRouter()
 def health_check() -> dict[str, str]:
     return {
         "status": "ok",
-        "service": "evaisys-testing-lab-backend",
+        "service": "evaisys-testing-lab-api",
     }

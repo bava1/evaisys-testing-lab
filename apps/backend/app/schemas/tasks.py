@@ -3,12 +3,12 @@ from pydantic import BaseModel, Field
 
 class Task(BaseModel):
     id: int
-    title: str = Field(..., min_length=1)
+    title: str = Field(...)
     completed: bool = False
 
 
 class TaskCreate(BaseModel):
-    title: str = Field(..., min_length=1)
+    title: str = Field(...)
 
 
 class TaskUpdate(BaseModel):

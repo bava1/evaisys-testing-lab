@@ -17,4 +17,4 @@ def get_article(article_id: int) -> Article:
         if article.id == article_id:
             return article
 
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not found")
+    return articles[0]

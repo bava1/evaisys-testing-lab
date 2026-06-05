@@ -18,6 +18,12 @@ import { useAuth } from "@/components/auth-context";
 const navItems = [
   { href: "/", label: "Home", desktopTestId: "nav-home-desktop", mobileTestId: "nav-home-mobile" },
   {
+    href: "/documentation",
+    label: "Doc",
+    desktopTestId: "nav-documentation-desktop",
+    mobileTestId: "nav-documentation-mobile",
+  },
+  {
     href: "/tasks",
     label: "Tasks",
     desktopTestId: "nav-tasks-desktop",
@@ -43,7 +49,7 @@ const navItems = [
   },
   {
     href: "/testing-lab",
-    label: "Testing Lab",
+    label: "Lab",
     desktopTestId: "nav-testing-lab-desktop",
     mobileTestId: "nav-testing-lab-mobile",
   },

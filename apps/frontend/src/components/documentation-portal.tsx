@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Alert,
   Box,
   Button,
@@ -168,6 +171,245 @@ const apiAutomationFocusItems = [
   "Data structure validation",
   "CRUD operations",
   "Regression coverage",
+];
+const playwrightAutomationScopeItems = [
+  "Authentication and access control",
+  "Navigation and application routing",
+  "Tasks management workflows",
+  "Requests processing workflows",
+  "Articles and content validation",
+  "Contacts and feedback functionality",
+  "Responsive behavior",
+  "Backend API validation",
+];
+const playwrightApiCoverageItems = [
+  "Health endpoints",
+  "Authentication endpoints",
+  "Tasks API",
+  "Requests API",
+  "Articles API",
+  "Contact API",
+];
+const testingLabExecutionItems = [
+  "Full test suite execution",
+  "Individual suite execution",
+  "HTML report generation",
+  "Result analysis and debugging",
+];
+const reportingItems = [
+  "Execution summary",
+  "Passed and failed tests",
+  "Error details",
+  "Screenshots and traces",
+  "Coverage visibility",
+];
+const architectureSystemComponents = [
+  {
+    title: "Frontend",
+    description: "Next.js + React + TypeScript + Material UI",
+  },
+  {
+    title: "Backend",
+    description: "FastAPI + REST API",
+  },
+  {
+    title: "Automation",
+    description: "Playwright UI & API Tests",
+  },
+  {
+    title: "Documentation",
+    description: "Integrated Documentation Portal",
+  },
+];
+const intentionalDefectBranches = [
+  {
+    title: "main (Stable Reference)",
+    sections: [
+      {
+        heading: "Purpose",
+        content: "Stable reference version of the application.",
+      },
+      {
+        heading: "Status",
+        content: "All automated tests are expected to pass.",
+        chipLabel: "All tests pass",
+        chipColor: "success" as const,
+      },
+      {
+        heading: "Coverage",
+        content:
+          "The branch contains the complete Playwright automation suite covering:",
+        items: [
+          "Authentication",
+          "Navigation",
+          "Tasks",
+          "Requests",
+          "Articles",
+          "Contacts",
+          "Responsive behavior",
+          "API validation",
+        ],
+        footer:
+          "The main branch serves as the baseline used for comparison with defect branches.",
+      },
+    ],
+  },
+  {
+    title: "intentional-ui-defects",
+    sections: [
+      {
+        heading: "Purpose",
+        content: "Contains intentionally introduced frontend defects.",
+      },
+      {
+        heading: "Examples of Defects",
+        items: [
+          "Broken UI validations",
+          "Missing interface elements",
+          "Navigation inconsistencies",
+          "Incorrect page behavior",
+          "Workflow interruptions",
+        ],
+      },
+      {
+        heading: "Expected Result",
+        content:
+          "Several Playwright UI tests fail and clearly demonstrate regression detection capabilities.",
+      },
+    ],
+  },
+  {
+    title: "intentional-api-defects",
+    sections: [
+      {
+        heading: "Purpose",
+        content: "Contains intentionally introduced backend defects.",
+      },
+      {
+        heading: "Examples of Defects",
+        items: [
+          "Invalid API responses",
+          "Broken validation rules",
+          "Incorrect status codes",
+          "Contract violations",
+          "Data processing issues",
+        ],
+      },
+      {
+        heading: "Expected Result",
+        content:
+          "Several API tests fail and demonstrate backend coverage effectiveness.",
+      },
+    ],
+  },
+];
+const intentionalDefectsWorkflowSteps = [
+  "main",
+  "Run Playwright Suite",
+  "All Tests Pass",
+  "Switch To Defect Branch",
+  "Run Same Suite",
+  "Observe Failures",
+  "Analyze Reports",
+];
+const architectureFrontendModules = [
+  "Authentication",
+  "Tasks",
+  "Requests",
+  "Articles",
+  "Contacts",
+  "Testing Lab",
+  "Documentation Portal",
+];
+const architectureBackendServices = [
+  "Authentication",
+  "Tasks",
+  "Requests",
+  "Articles",
+  "Contacts",
+  "Health Monitoring",
+];
+const architecturePrinciples = [
+  "Separation of concerns",
+  "Testability first",
+  "Reproducible execution",
+  "Documentation driven development",
+  "Controlled defect simulation",
+  "AI-assisted QA workflows",
+];
+const futureDevelopmentCards = [
+  {
+    title: "Documentation Expansion",
+    items: [
+      "Complete documentation integration",
+      "Architecture materials",
+      "Test artifacts",
+      "Versioned documents",
+    ],
+  },
+  {
+    title: "Testing Lab Improvements",
+    items: [
+      "Individual test execution",
+      "Test filtering",
+      "Tag-based grouping",
+      "Execution history",
+    ],
+  },
+  {
+    title: "Reporting & Analytics",
+    items: [
+      "Coverage statistics",
+      "Execution trends",
+      "Failure tracking",
+      "Quality metrics",
+    ],
+  },
+  {
+    title: "Platform Growth",
+    items: [
+      "Additional modules",
+      "Expanded API coverage",
+      "Security scenarios",
+      "Performance examples",
+    ],
+  },
+];
+const aiQaRoadmapItems = [
+  {
+    title: "AI Test Strategy Generation",
+    items: [
+      "Generate testing approaches",
+      "Suggest coverage improvements",
+      "Identify testing risks",
+      "Recommend validation priorities",
+    ],
+  },
+  {
+    title: "AI Test Case Creation",
+    items: [
+      "Generate test cases from requirements",
+      "Create checklists",
+      "Produce validation scenarios",
+      "Support exploratory testing",
+    ],
+  },
+  {
+    title: "AI Result Analysis",
+    items: [
+      "Analyze failures",
+      "Detect suspicious patterns",
+      "Recommend corrective actions",
+      "Support root-cause investigation",
+    ],
+  },
+];
+const cicdCapabilities = [
+  "Scheduled regression execution",
+  "Pipeline validation",
+  "Quality gates",
+  "Automated reporting",
+  "Release verification workflows",
 ];
 
 function renderOverviewContent() {
@@ -1140,6 +1382,573 @@ function renderApiTestingPlanContent() {
   );
 }
 
+function renderPlaywrightAutomationPlanContent() {
+  return (
+    <Stack spacing={3} data-testid="documentation-section-playwright-automation-plan">
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+        <Typography variant="h5">Playwright Automation Plan</Typography>
+        <Chip label="Automation" size="small" color="primary" variant="outlined" />
+      </Stack>
+
+      <Divider />
+
+      <Stack spacing={1}>
+        <Typography variant="h6">Purpose</Typography>
+        <Typography variant="body2" color="text.secondary">
+          Playwright automation is used to provide repeatable, stable and maintainable verification
+          of critical product functionality.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          The automation layer complements manual testing and focuses on high-value regression
+          scenarios.
+        </Typography>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Automation Scope</Typography>
+        <Typography variant="body2" color="text.secondary">
+          The automated test suite covers the most important areas of the application.
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {playwrightAutomationScopeItems.map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">UI Automation</Typography>
+        <Typography variant="body2" color="text.secondary">
+          User interface testing is implemented with Playwright using an end-to-end approach. Tests
+          interact with the application in the same way as real users and verify complete business
+          workflows.
+        </Typography>
+        <Paper variant="outlined" sx={{ p: 1.75 }}>
+          <Stack spacing={1}>
+            <Typography variant="subtitle1">Main goals</Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              {[
+                "Verify user journeys",
+                "Detect regressions",
+                "Validate application behavior across pages",
+                "Confirm integration between frontend and backend",
+              ].map((item) => (
+                <Chip key={item} label={item} size="small" variant="outlined" />
+              ))}
+            </Stack>
+          </Stack>
+        </Paper>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">API Automation</Typography>
+        <Typography variant="body2" color="text.secondary">
+          API tests validate backend endpoints independently from the user interface.
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {playwrightApiCoverageItems.map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+        <Typography variant="body2" color="text.secondary">
+          This approach helps identify backend issues before they affect the UI layer.
+        </Typography>
+      </Stack>
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))" },
+          gap: 1.5,
+        }}
+      >
+        <Paper variant="outlined" sx={{ p: 1.75 }}>
+          <Stack spacing={1}>
+            <Typography variant="h6">Test Execution</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Tests can be executed directly from the Testing Lab workspace.
+            </Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              {testingLabExecutionItems.map((item) => (
+                <Chip key={item} label={item} size="small" variant="outlined" />
+              ))}
+            </Stack>
+            <Typography variant="body2" color="text.secondary">
+              A warm-up mechanism is used before execution to eliminate frontend cold-start issues
+              during local development.
+            </Typography>
+          </Stack>
+        </Paper>
+
+        <Paper variant="outlined" sx={{ p: 1.75 }}>
+          <Stack spacing={1}>
+            <Typography variant="h6">Reporting</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Test execution generates Playwright reports that support quick investigation and
+              result analysis.
+            </Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              {reportingItems.map((item) => (
+                <Chip key={item} label={item} size="small" variant="outlined" />
+              ))}
+            </Stack>
+          </Stack>
+        </Paper>
+      </Box>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Source Documentation</Typography>
+          <Typography variant="subtitle1">Playwright Automation Plan (Full Document)</Typography>
+          <Typography variant="body2" color="text.secondary">
+            The complete automation plan is available as a dedicated project document and will be
+            linked here after document integration is completed.
+          </Typography>
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+}
+
+function renderIntentionalDefectsContent() {
+  return (
+    <Stack spacing={3} data-testid="documentation-section-intentional-defects">
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+        <Typography variant="h5">Intentional Defects</Typography>
+        <Chip label="Regression Demo" size="small" color="primary" variant="outlined" />
+      </Stack>
+
+      <Divider />
+
+      <Stack spacing={1}>
+        <Typography variant="h6">Purpose</Typography>
+        <Typography variant="body2" color="text.secondary">
+          EVAISYS Testing Lab includes dedicated branches that contain intentionally introduced
+          defects. These branches are used to demonstrate how automated tests detect regressions and
+          application failures in realistic scenarios.
+        </Typography>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Why Intentional Defects Exist</Typography>
+        <Typography variant="body2" color="text.secondary">
+          The project is designed not only to demonstrate successful test execution, but also to
+          show how Playwright tests behave when real defects are introduced into the application.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          This approach allows engineers to:
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {[
+            "observe failing tests",
+            "analyze reports",
+            "investigate root causes",
+            "validate automation effectiveness",
+            "demonstrate regression detection",
+          ].map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Branch Overview</Typography>
+        <Stack spacing={1.5}>
+          {intentionalDefectBranches.map((branch) => (
+            <Accordion key={branch.title} disableGutters sx={{ "&:before": { display: "none" } }}>
+              <AccordionSummary
+                expandIcon={
+                  <Typography variant="caption" color="text.secondary">
+                    Show details
+                  </Typography>
+                }
+              >
+                <Typography variant="subtitle1">{branch.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack spacing={2}>
+                  {branch.sections.map((section) => (
+                    <Stack key={`${branch.title}-${section.heading}`} spacing={0.75}>
+                      <Stack direction="row" spacing={1} alignItems="center" useFlexGap flexWrap="wrap">
+                        <Typography variant="subtitle2">{section.heading}</Typography>
+                        {"chipLabel" in section && section.chipLabel ? (
+                          <Chip
+                            label={section.chipLabel}
+                            size="small"
+                            color={section.chipColor ?? "default"}
+                            variant="outlined"
+                          />
+                        ) : null}
+                      </Stack>
+                      {"content" in section && section.content ? (
+                        <Typography variant="body2" color="text.secondary">
+                          {section.content}
+                        </Typography>
+                      ) : null}
+                      {"items" in section && section.items ? (
+                        <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.secondary" }}>
+                          {section.items.map((item) => (
+                            <li key={`${branch.title}-${section.heading}-${item}`}>
+                              <Typography variant="body2">{item}</Typography>
+                            </li>
+                          ))}
+                        </Box>
+                      ) : null}
+                      {"footer" in section && section.footer ? (
+                        <Typography variant="body2" color="text.secondary">
+                          {section.footer}
+                        </Typography>
+                      ) : null}
+                    </Stack>
+                  ))}
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </Stack>
+      </Stack>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.5}>
+          <Typography variant="h6">Validation Workflow</Typography>
+          <Typography variant="body2" color="text.secondary">
+            The recommended validation process is to execute the automation suite against the stable
+            branch, verify successful execution, switch to a defect branch and execute the same
+            tests again. The resulting failures demonstrate the effectiveness of automated
+            regression detection.
+          </Typography>
+          <Stack spacing={1} alignItems="flex-start">
+            {intentionalDefectsWorkflowSteps.map((step, index) => (
+              <Stack key={step} spacing={0.75} alignItems="flex-start">
+                <Chip label={step} size="small" variant="outlined" />
+                {index < intentionalDefectsWorkflowSteps.length - 1 ? (
+                  <Typography variant="body2" color="text.secondary">
+                    ↓
+                  </Typography>
+                ) : null}
+              </Stack>
+            ))}
+          </Stack>
+        </Stack>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Source Documentation</Typography>
+          <Typography variant="subtitle1">Intentional Defects Plan (Full Document)</Typography>
+          <Typography variant="body2" color="text.secondary">
+            The complete intentional defects strategy is available as a dedicated project document
+            and will be linked here after document integration is completed.
+          </Typography>
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+}
+
+function renderArchitectureContent() {
+  return (
+    <Stack spacing={3} data-testid="documentation-section-architecture">
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+        <Typography variant="h5">Architecture</Typography>
+        <Chip label="System Design" size="small" color="primary" variant="outlined" />
+      </Stack>
+
+      <Divider />
+
+      <Stack spacing={1}>
+        <Typography variant="h6">Architecture Overview</Typography>
+        <Typography variant="body2" color="text.secondary">
+          EVAISYS Testing Lab is designed as a complete QA demonstration platform that combines
+          frontend functionality, backend services, automated testing and project documentation
+          within a single controlled environment.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          The architecture focuses on simplicity, transparency and reproducibility while remaining
+          realistic enough to demonstrate modern testing workflows.
+        </Typography>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">System Components</Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))" },
+            gap: 1.5,
+          }}
+        >
+          {architectureSystemComponents.map((component) => (
+            <Paper key={component.title} variant="outlined" sx={{ p: 1.75 }}>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">{component.title}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {component.description}
+                </Typography>
+              </Stack>
+            </Paper>
+          ))}
+        </Box>
+      </Stack>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">High Level Architecture Diagram</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Architecture diagram will be added in the next step.
+          </Typography>
+        </Stack>
+      </Paper>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Frontend Layer</Typography>
+        <Typography variant="body2" color="text.secondary">
+          The frontend provides the user interface used for both manual testing and automated
+          Playwright execution.
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {architectureFrontendModules.map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Backend Layer</Typography>
+        <Typography variant="body2" color="text.secondary">
+          The backend exposes REST endpoints used by both the application and automated API tests.
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {architectureBackendServices.map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Testing Layer</Typography>
+        <Stack spacing={1.5}>
+          {[
+            {
+              title: "Manual Testing",
+              items: [
+                "Exploratory testing",
+                "Smoke testing",
+                "Sanity verification",
+                "UI validation",
+              ],
+            },
+            {
+              title: "Playwright UI Automation",
+              items: [
+                "Authentication",
+                "Navigation",
+                "Tasks",
+                "Requests",
+                "Articles",
+                "Contacts",
+                "Responsive testing",
+              ],
+            },
+            {
+              title: "Playwright API Automation",
+              items: [
+                "Health",
+                "Authentication",
+                "Tasks",
+                "Requests",
+                "Articles",
+                "Contacts",
+              ],
+            },
+          ].map((layer) => (
+            <Accordion key={layer.title} disableGutters sx={{ "&:before": { display: "none" } }}>
+              <AccordionSummary
+                expandIcon={
+                  <Typography variant="caption" color="text.secondary">
+                    Show details
+                  </Typography>
+                }
+              >
+                <Typography variant="subtitle1">{layer.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.secondary" }}>
+                  {layer.items.map((item) => (
+                    <li key={`${layer.title}-${item}`}>
+                      <Typography variant="body2">{item}</Typography>
+                    </li>
+                  ))}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1}>
+        <Typography variant="h6">Documentation Layer</Typography>
+        <Typography variant="body2" color="text.secondary">
+          The Documentation Portal stores project knowledge, testing strategies, coverage
+          descriptions, architecture documentation and future development plans.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          It acts as the knowledge base of the EVAISYS ecosystem.
+        </Typography>
+      </Stack>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Architectural Principles</Typography>
+          <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.secondary" }}>
+            {architecturePrinciples.map((item) => (
+              <li key={item}>
+                <Typography variant="body2">{item}</Typography>
+              </li>
+            ))}
+          </Box>
+        </Stack>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Source Documentation</Typography>
+          <Typography variant="body2" color="text.secondary">
+            The complete architecture description is available as a dedicated project document and
+            will be linked here after document integration is completed.
+          </Typography>
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+}
+
+function renderFutureDevelopmentContent() {
+  return (
+    <Stack spacing={3} data-testid="documentation-section-future-development">
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+        <Typography variant="h5">Future Development</Typography>
+        <Chip label="Roadmap" size="small" color="primary" variant="outlined" />
+      </Stack>
+
+      <Divider />
+
+      <Stack spacing={1}>
+        <Typography variant="h6">Future Vision</Typography>
+        <Typography variant="body2" color="text.secondary">
+          EVAISYS Testing Lab is intentionally designed as a lightweight demonstration platform for
+          modern QA engineering practices.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          The current implementation provides a stable foundation for frontend testing, API
+          validation, Playwright automation and project documentation.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Future development is focused on expanding the platform into a more complete testing
+          ecosystem while preserving its educational and portfolio-oriented nature.
+        </Typography>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">Planned Improvements</Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))" },
+            gap: 1.5,
+          }}
+        >
+          {futureDevelopmentCards.map((card) => (
+            <Paper key={card.title} variant="outlined" sx={{ p: 1.75 }}>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">{card.title}</Typography>
+                <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.secondary" }}>
+                  {card.items.map((item) => (
+                    <li key={`${card.title}-${item}`}>
+                      <Typography variant="body2">{item}</Typography>
+                    </li>
+                  ))}
+                </Box>
+              </Stack>
+            </Paper>
+          ))}
+        </Box>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">AI-assisted QA Roadmap</Typography>
+        <Stack spacing={1.5}>
+          {aiQaRoadmapItems.map((item) => (
+            <Accordion key={item.title} disableGutters sx={{ "&:before": { display: "none" } }}>
+              <AccordionSummary
+                expandIcon={
+                  <Typography variant="caption" color="text.secondary">
+                    Show details
+                  </Typography>
+                }
+              >
+                <Typography variant="subtitle1">{item.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.secondary" }}>
+                  {item.items.map((entry) => (
+                    <li key={`${item.title}-${entry}`}>
+                      <Typography variant="body2">{entry}</Typography>
+                    </li>
+                  ))}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </Stack>
+      </Stack>
+
+      <Stack spacing={1.5}>
+        <Typography variant="h6">CI/CD Integration</Typography>
+        <Typography variant="body2" color="text.secondary">
+          Future versions of EVAISYS Testing Lab may include automated execution through CI/CD
+          pipelines.
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Planned capabilities include:
+        </Typography>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {cicdCapabilities.map((item) => (
+            <Chip key={item} label={item} size="small" variant="outlined" />
+          ))}
+        </Stack>
+      </Stack>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Long-Term Goal</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Build a compact but realistic QA engineering platform that demonstrates the complete
+            testing lifecycle:
+          </Typography>
+          <Typography variant="subtitle1">
+            Planning → Implementation → Execution → Reporting → Continuous Improvement
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            The objective is to provide a practical environment that combines documentation,
+            automation, defect simulation and AI-assisted QA workflows within a single project.
+          </Typography>
+        </Stack>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ p: 2.25 }}>
+        <Stack spacing={1.25}>
+          <Typography variant="h6">Future Development Document</Typography>
+          <Typography variant="body2" color="text.secondary">
+            A detailed roadmap document will be attached here after document integration is
+            completed.
+          </Typography>
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+}
+
 function renderPlaceholderContent(sectionTitle: string) {
   return (
     <Stack spacing={2}>
@@ -1241,6 +2050,14 @@ export default function DocumentationPortal() {
                     ? renderChecklistsContent()
                     : selectedSection.id === "api-testing-plan"
                       ? renderApiTestingPlanContent()
+                      : selectedSection.id === "playwright-automation-plan"
+                        ? renderPlaywrightAutomationPlanContent()
+                        : selectedSection.id === "intentional-defects"
+                          ? renderIntentionalDefectsContent()
+                          : selectedSection.id === "architecture"
+                            ? renderArchitectureContent()
+                            : selectedSection.id === "future-development"
+                              ? renderFutureDevelopmentContent()
                   : renderPlaceholderContent(selectedSection.title)}
       </Paper>
 

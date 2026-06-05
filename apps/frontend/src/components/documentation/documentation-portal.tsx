@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Chip, Divider, List, ListItemButton, ListItemText, Paper, Stack, Typography } from "@mui/material";
+import { Box, Divider, List, ListItemButton, ListItemText, Paper, Stack, Typography } from "@mui/material";
 import DiagramViewer from "./common/diagram-viewer";
 import AiWorkflowSection from "./sections/ai-workflow-section";
 import ApiTestingPlanSection from "./sections/api-testing-plan-section";
@@ -123,10 +123,7 @@ export default function DocumentationPortal() {
     >
       <Paper variant="outlined" sx={{ p: 2.5 }} data-testid="documentation-sidebar">
         <Stack spacing={2}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-            <Typography variant="h6">Sections</Typography>
-            <Chip label={`${documentationSections.length} items`} size="small" variant="outlined" />
-          </Stack>
+          <Typography variant="h6">Documentation</Typography>
 
           <Divider />
 

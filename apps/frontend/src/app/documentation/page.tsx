@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageContainer from "@/components/page-container";
+import { Box } from "@mui/material";
 import DocumentationPortal from "@/components/documentation-portal";
 
 export const metadata: Metadata = {
@@ -9,12 +9,8 @@ export const metadata: Metadata = {
 
 export default function DocumentationPage() {
   return (
-    <PageContainer
-      title="Documentation Portal"
-      description="Project documentation, test strategy, test coverage and QA materials will be displayed here."
-      testId="documentation"
-    >
+    <Box data-testid="documentation-page">
       <DocumentationPortal />
-    </PageContainer>
+    </Box>
   );
 }

@@ -118,6 +118,56 @@ const testCaseLibraryItems = [
     title: "TC-020 Navigate to Articles Module",
     description: "Navigation from the main interface into the Articles section.",
   },
+  {
+    id: "tc-021",
+    title: "TC-021 Display Articles List",
+    description: "Rendering of the Articles list with visible titles, categories, and detail actions.",
+  },
+  {
+    id: "tc-022",
+    title: "TC-022 Search Articles",
+    description: "Searching articles by text query across titles and descriptions.",
+  },
+  {
+    id: "tc-023",
+    title: "TC-023 Filter Articles by Category",
+    description: "Filtering articles by category and validating correct filtered results.",
+  },
+  {
+    id: "tc-024",
+    title: "TC-024 View Article Details",
+    description: "Opening the selected article details dialog and validating displayed content.",
+  },
+  {
+    id: "tc-025",
+    title: "TC-025 Contacts Module Functionality",
+    description: "Core Contacts section behavior, including contact display and search.",
+  },
+  {
+    id: "tc-026",
+    title: "TC-026 Feedback Form Functionality",
+    description: "Feedback form validation, negative scenarios, and successful submission flow.",
+  },
+  {
+    id: "tc-027",
+    title: "TC-027 API Functionality Validation",
+    description: "Baseline validation of core REST API groups, responses, and error handling.",
+  },
+  {
+    id: "tc-028",
+    title: "TC-028 Responsive Layout Verification",
+    description: "Responsive behavior across desktop, tablet, and mobile screen sizes.",
+  },
+  {
+    id: "tc-029",
+    title: "TC-029 Accessibility Verification",
+    description: "Baseline accessibility review for keyboard navigation, labels, and readability.",
+  },
+  {
+    id: "tc-030",
+    title: "TC-030 Security & Protected Access Verification",
+    description: "Baseline verification of protected routes, invalid credentials, and access control.",
+  },
 ];
 
 export default function TestCasesSection() {
@@ -188,7 +238,7 @@ export default function TestCasesSection() {
           <Stack spacing={1.5}>
             <Typography variant="h6">Test Case Library</Typography>
             <Typography variant="body2" color="text.secondary">
-              The first 20 test cases from the prepared Word documentation are available below and
+              The first 30 test cases from the prepared Word documentation are available below and
               can be opened in the shared document viewer.
             </Typography>
             <Stack
@@ -219,7 +269,7 @@ export default function TestCasesSection() {
 
         <SourceDocumentCard
           title="Source Materials"
-          description="The first 20 test cases are now migrated from the prepared Word documentation and can be reviewed or downloaded through the modal viewer."
+          description="The first 30 test cases are now migrated from the prepared Word documentation and can be reviewed or downloaded through the modal viewer."
           testId="test-cases-source-materials"
         />
       </Stack>

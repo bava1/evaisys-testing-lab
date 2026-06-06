@@ -102,4 +102,4 @@ logs/
 *.tsbuildinfo
 
 # Documentation migration source files
-apps/frontend/src/components/documentation/content/source-word/
+**/source-word/

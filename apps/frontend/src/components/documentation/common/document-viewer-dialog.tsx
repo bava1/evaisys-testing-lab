@@ -73,7 +73,13 @@ export default function DocumentViewerDialog({
       fullWidth
       maxWidth="xl"
       data-testid={testId}
-      PaperProps={{ sx: { borderRadius: 2 } }}
+      PaperProps={{
+        sx: {
+          borderRadius: 2,
+          width: { xs: "calc(100% - 32px)", md: "75vw" },
+          maxWidth: { md: "75vw" },
+        },
+      }}
     >
       <DialogTitle>{document.title}</DialogTitle>
       <DialogContent dividers sx={{ minHeight: 520 }}>

@@ -19,6 +19,16 @@ import { tc017FilterRequestsByPriorityDocument } from "./tc-017-filter-requests-
 import { tc018ViewRequestDetailsDocument } from "./tc-018-view-request-details";
 import { tc019ChangeRequestStatusDocument } from "./tc-019-change-request-status";
 import { tc020NavigateToArticlesDocument } from "./tc-020-navigate-to-articles";
+import { tc021DisplayArticlesListDocument } from "./tc-021-display-articles-list";
+import { tc022SearchArticlesDocument } from "./tc-022-search-articles";
+import { tc023FilterArticlesByCategoryDocument } from "./tc-023-filter-articles-by-category";
+import { tc024ViewArticleDetailsDocument } from "./tc-024-view-article-details";
+import { tc025ContactsModuleFunctionalityDocument } from "./tc-025-contacts-module-functionality";
+import { tc026FeedbackFormFunctionalityDocument } from "./tc-026-feedback-form-functionality";
+import { tc027ApiFunctionalityValidationDocument } from "./tc-027-api-functionality-validation";
+import { tc028ResponsiveLayoutVerificationDocument } from "./tc-028-responsive-layout-verification";
+import { tc029AccessibilityVerificationDocument } from "./tc-029-accessibility-verification";
+import { tc030SecurityProtectedAccessVerificationDocument } from "./tc-030-security-protected-access-verification";
 
 export const testCaseRegistry: Record<string, DocumentationDocument> = {
   "tc-001": tc001LoginValidCredentialsDocument,
@@ -41,4 +51,14 @@ export const testCaseRegistry: Record<string, DocumentationDocument> = {
   "tc-018": tc018ViewRequestDetailsDocument,
   "tc-019": tc019ChangeRequestStatusDocument,
   "tc-020": tc020NavigateToArticlesDocument,
+  "tc-021": tc021DisplayArticlesListDocument,
+  "tc-022": tc022SearchArticlesDocument,
+  "tc-023": tc023FilterArticlesByCategoryDocument,
+  "tc-024": tc024ViewArticleDetailsDocument,
+  "tc-025": tc025ContactsModuleFunctionalityDocument,
+  "tc-026": tc026FeedbackFormFunctionalityDocument,
+  "tc-027": tc027ApiFunctionalityValidationDocument,
+  "tc-028": tc028ResponsiveLayoutVerificationDocument,
+  "tc-029": tc029AccessibilityVerificationDocument,
+  "tc-030": tc030SecurityProtectedAccessVerificationDocument,
 };

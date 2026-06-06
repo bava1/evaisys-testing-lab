@@ -25,6 +25,7 @@ def run_testing_suite() -> TestingRunResponse | JSONResponse:
             durationMs=0,
             reportPath=None,
             reportAvailable=False,
+            reportUrl=None,
             diagnostics=build_testing_run_diagnostics(
                 repo_root=get_repo_root(),
                 frontend_available=False,

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.articles import router as articles_router
 from app.api.auth import router as auth_router
@@ -9,6 +10,7 @@ from app.api.requests import router as requests_router
 from app.api.tasks import router as tasks_router
 from app.api.testing import router as testing_router
 from app.core.config import settings
+from app.core.testing_runner import PLAYWRIGHT_REPORT_DIR, get_repo_root
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -31,3 +33,8 @@ app.include_router(requests_router)
 app.include_router(articles_router)
 app.include_router(contact_router)
 app.include_router(testing_router)
+app.mount(
+    "/testing/report",
+    StaticFiles(directory=get_repo_root() / PLAYWRIGHT_REPORT_DIR, html=True, check_dir=False),
+    name="testing-report",
+)

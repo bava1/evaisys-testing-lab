@@ -32,4 +32,5 @@ class TestingRunResponse(BaseModel):
     durationMs: int
     reportPath: str | None
     reportAvailable: bool
+    reportUrl: str | None
     diagnostics: TestingRunDiagnostics

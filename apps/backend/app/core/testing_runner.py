@@ -17,7 +17,9 @@ PLAYWRIGHT_TIMEOUT_SECONDS = 240
 PREFLIGHT_TIMEOUT_SECONDS = 3
 PLAYWRIGHT_COMMAND = ["run", "test:e2e", "--", "--workers=1"]
 PLAYWRIGHT_COMMAND_DISPLAY = "npm run test:e2e -- --workers=1"
-PLAYWRIGHT_REPORT_INDEX = Path("playwright-tests") / "playwright-report" / "index.html"
+PLAYWRIGHT_REPORT_DIR = Path("playwright-tests") / "playwright-report"
+PLAYWRIGHT_REPORT_INDEX = PLAYWRIGHT_REPORT_DIR / "index.html"
+PLAYWRIGHT_REPORT_URL = "/testing/report"
 FRONTEND_URL = "http://127.0.0.1:3000/login"
 BACKEND_HEALTH_URL = "http://127.0.0.1:8000/health"
 FRONTEND_WARMUP_URLS = [
@@ -117,14 +119,16 @@ def build_testing_run_diagnostics(
     )
 
 
-def _get_report_metadata(repo_root: Path, started_at_wall_time: float) -> tuple[str | None, bool]:
+def _get_report_metadata(
+    repo_root: Path, started_at_wall_time: float
+) -> tuple[str | None, bool, str | None]:
     report_file = repo_root / PLAYWRIGHT_REPORT_INDEX
     report_is_fresh = report_file.exists() and report_file.stat().st_mtime >= started_at_wall_time - 1
 
     if not report_is_fresh:
-        return None, False
+        return None, False, None
 
-    return PLAYWRIGHT_REPORT_INDEX.as_posix(), True
+    return PLAYWRIGHT_REPORT_INDEX.as_posix(), True, PLAYWRIGHT_REPORT_URL
 
 
 def run_playwright_tests() -> TestingRunResponse:
@@ -166,6 +170,7 @@ def run_playwright_tests() -> TestingRunResponse:
                 durationMs=duration_ms,
                 reportPath=None,
                 reportAvailable=False,
+                reportUrl=None,
                 diagnostics=diagnostics,
             )
 
@@ -181,7 +186,9 @@ def run_playwright_tests() -> TestingRunResponse:
             check=False,
         )
         duration_ms = int((time.perf_counter() - started_at) * 1000)
-        report_path, report_available = _get_report_metadata(repo_root, started_at_wall_time)
+        report_path, report_available, report_url = _get_report_metadata(
+            repo_root, started_at_wall_time
+        )
 
         return TestingRunResponse(
             status="finished" if completed_process.returncode == 0 else "failed",
@@ -191,6 +198,7 @@ def run_playwright_tests() -> TestingRunResponse:
             durationMs=duration_ms,
             reportPath=report_path,
             reportAvailable=report_available,
+            reportUrl=report_url,
             diagnostics=diagnostics,
         )
     except subprocess.TimeoutExpired as error:
@@ -198,7 +206,9 @@ def run_playwright_tests() -> TestingRunResponse:
         timeout_message = f"Playwright run timed out after {PLAYWRIGHT_TIMEOUT_SECONDS} seconds."
         stderr_parts = [error.stderr or "", timeout_message]
         stderr = "\n".join(part for part in stderr_parts if part)
-        report_path, report_available = _get_report_metadata(repo_root, started_at_wall_time)
+        report_path, report_available, report_url = _get_report_metadata(
+            repo_root, started_at_wall_time
+        )
         diagnostics = build_testing_run_diagnostics(
             repo_root=repo_root,
             frontend_available=True,
@@ -214,6 +224,7 @@ def run_playwright_tests() -> TestingRunResponse:
             durationMs=duration_ms,
             reportPath=report_path,
             reportAvailable=report_available,
+            reportUrl=report_url,
             diagnostics=diagnostics,
         )
     except OSError as error:
@@ -232,6 +243,7 @@ def run_playwright_tests() -> TestingRunResponse:
             durationMs=duration_ms,
             reportPath=None,
             reportAvailable=False,
+            reportUrl=None,
             diagnostics=diagnostics,
         )
     finally:

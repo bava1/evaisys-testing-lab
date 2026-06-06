@@ -85,8 +85,15 @@ export default function AppHeader() {
 
   return (
     <AppBar position="fixed" color="primary" data-testid="app-header">
-      <Toolbar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <Box sx={{ flexShrink: 0, lineHeight: 0 }}>
+      <Toolbar
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "auto 1fr auto", md: "1fr auto 1fr" },
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Box sx={{ flexShrink: 0, lineHeight: 0, justifySelf: "start" }}>
           <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
             <Image
               src="/Logo.png"
@@ -105,8 +112,8 @@ export default function AppHeader() {
             display: { xs: "none", md: "flex" },
             gap: 1,
             alignItems: "center",
-            flex: 1,
             minWidth: 0,
+            justifySelf: "center",
           }}
         >
           {navItems.map((item) => (
@@ -133,9 +140,9 @@ export default function AppHeader() {
           data-testid="auth-actions"
           sx={{
             display: { xs: "none", md: "flex" },
-            ml: "auto",
             flexShrink: 0,
             alignItems: "center",
+            justifySelf: "end",
           }}
         >
           {isReady && isAuthenticated ? (

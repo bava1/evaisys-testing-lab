@@ -3,6 +3,8 @@ import { Box, Button, Chip, Divider, Paper, Stack, Typography } from "@mui/mater
 import DocumentViewerDialog from "../common/document-viewer-dialog";
 import SourceDocumentCard from "../common/source-document-card";
 import { testCoverageFullDocument } from "../content/documents/test-coverage";
+import { testCoverageMapDocument } from "../content/documents/test-coverage-map";
+import type { DocumentationDocument } from "../content/types";
 
 type TestCoverageSectionProps = {
   onOpenDiagram: () => void;
@@ -56,7 +58,7 @@ const automationFocusAreas = [
 ];
 
 export default function TestCoverageSection({ onOpenDiagram }: TestCoverageSectionProps) {
-  const [isDocumentOpen, setIsDocumentOpen] = useState(false);
+  const [activeDocument, setActiveDocument] = useState<DocumentationDocument | null>(null);
 
   return (
     <>
@@ -231,28 +233,37 @@ export default function TestCoverageSection({ onOpenDiagram }: TestCoverageSecti
         </Stack>
 
         <SourceDocumentCard
-          title="Source Documentation"
-          subtitle={testCoverageFullDocument.title}
-          description="Translated content from the original Word source document is available in the portal and can be reviewed or downloaded from the modal viewer."
+          title="Source Documents"
+          description="Open the translated source documents for the Test Coverage section in the shared modal viewer."
           testId="test-coverage-source-documentation"
         />
 
-        <Button
-          variant="outlined"
-          onClick={() => setIsDocumentOpen(true)}
-          sx={{ alignSelf: "flex-start" }}
-          data-testid="test-coverage-view-full-document"
-        >
-          View Full Document
-        </Button>
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ alignSelf: "flex-start" }}>
+          <Button
+            variant="outlined"
+            onClick={() => setActiveDocument(testCoverageFullDocument)}
+            data-testid="test-coverage-view-overview-document"
+          >
+            Test Coverage Overview
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => setActiveDocument(testCoverageMapDocument)}
+            data-testid="test-coverage-view-map-document"
+          >
+            Test Coverage Map
+          </Button>
+        </Stack>
       </Stack>
 
-      <DocumentViewerDialog
-        document={testCoverageFullDocument}
-        open={isDocumentOpen}
-        testId="test-coverage-document-viewer-dialog"
-        onClose={() => setIsDocumentOpen(false)}
-      />
+      {activeDocument ? (
+        <DocumentViewerDialog
+          document={activeDocument}
+          open={activeDocument !== null}
+          testId="test-coverage-document-viewer-dialog"
+          onClose={() => setActiveDocument(null)}
+        />
+      ) : null}
     </>
   );
 }

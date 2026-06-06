@@ -111,11 +111,6 @@ export default function AiWorkflowSection() {
             {qaLifecycleSteps.map((step, index) => (
               <Stack key={step} spacing={0.75} alignItems="flex-start">
                 <Chip label={step} size="small" variant="outlined" />
-                {index < qaLifecycleSteps.length - 1 ? (
-                  <Typography variant="body2" color="text.secondary">
-                    ↓
-                  </Typography>
-                ) : null}
               </Stack>
             ))}
           </Stack>
@@ -189,11 +184,6 @@ export default function AiWorkflowSection() {
             {workflowExampleSteps.map((step, index) => (
               <Stack key={step} spacing={0.75} alignItems="flex-start">
                 <Chip label={step} size="small" variant="outlined" />
-                {index < workflowExampleSteps.length - 1 ? (
-                  <Typography variant="body2" color="text.secondary">
-                    ↓
-                  </Typography>
-                ) : null}
               </Stack>
             ))}
           </Stack>

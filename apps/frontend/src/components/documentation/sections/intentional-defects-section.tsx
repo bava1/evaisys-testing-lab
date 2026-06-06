@@ -221,11 +221,6 @@ export default function IntentionalDefectsSection() {
               {intentionalDefectsWorkflowSteps.map((step, index) => (
                 <Stack key={step} spacing={0.75} alignItems="flex-start">
                   <Chip label={step} size="small" variant="outlined" />
-                  {index < intentionalDefectsWorkflowSteps.length - 1 ? (
-                    <Typography variant="body2" color="text.secondary">
-                      ↓
-                    </Typography>
-                  ) : null}
                 </Stack>
               ))}
             </Stack>

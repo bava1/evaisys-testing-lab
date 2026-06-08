@@ -9,12 +9,11 @@ The project provides a controlled testing environment that includes a web applic
 Unlike typical demo applications, EVAISYS Testing Lab was created primarily as a test target rather than a business product. The main value of the project lies in its testing infrastructure, automation capabilities, reproducible scenarios, and the ability to introduce controlled defects for educational and demonstration purposes.
 
 ---
+📘 **Public Documentation Portal**
 
-📘 Public Documentation Portal:
+The complete QA documentation package is available here:
 
-The Documentation Portal contains the complete QA documentation package for the project, including:
 https://evaisys-testing-lab.vercel.app/documentation
----
 
 # Project Vision
 

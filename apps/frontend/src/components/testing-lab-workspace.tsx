@@ -311,10 +311,10 @@ function getTestAccordionId(fileName: string): string {
 export default function TestingLabWorkspace() {
   const [isRunning, setIsRunning] = useState(false);
   const [runResult, setRunResult] = useState<TestingRunResponse | null>(null);
+  const [lastReportUrl, setLastReportUrl] = useState("");
   const [runError, setRunError] = useState("");
   const stdoutTail = runResult ? getOutputTail(runResult.stdout) : "";
   const stderrTail = runResult ? getOutputTail(runResult.stderr) : "";
-  const reportUrl = runResult?.reportUrl ? buildApiUrl(runResult.reportUrl) : "";
 
   const handleRunAllTests = async () => {
     setIsRunning(true);
@@ -324,6 +324,10 @@ export default function TestingLabWorkspace() {
     try {
       const response = await apiClient.post<TestingRunResponse>("/testing/run");
       setRunResult(response);
+
+      if (response.reportUrl) {
+        setLastReportUrl(buildApiUrl(response.reportUrl));
+      }
     } catch (error) {
       if (error instanceof ApiClientError) {
         const backendMessage =
@@ -348,12 +352,16 @@ export default function TestingLabWorkspace() {
     }
   };
 
+  const handleClearResults = () => {
+    setRunResult(null);
+  };
+
   const handleOpenReport = () => {
-    if (!reportUrl) {
+    if (!lastReportUrl) {
       return;
     }
 
-    window.open(reportUrl, "_blank", "noopener,noreferrer");
+    window.open(lastReportUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -373,11 +381,22 @@ export default function TestingLabWorkspace() {
             <Button
               variant="outlined"
               onClick={handleOpenReport}
-              disabled={!reportUrl || isRunning}
+              disabled={!lastReportUrl || isRunning}
               data-testid="testing-lab-open-report"
             >
               View Playwright Report
             </Button>
+            {runResult ? (
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={handleClearResults}
+                disabled={isRunning}
+                data-testid="testing-lab-clear-results"
+              >
+                Clear Results
+              </Button>
+            ) : null}
           </Stack>
 
           {isRunning ? (

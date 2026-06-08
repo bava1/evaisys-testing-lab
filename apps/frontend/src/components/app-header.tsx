@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAuth } from "@/components/auth-context";
+import { isPublicDocsMode } from "@/config/public-docs-mode";
 
 const navItems = [
   { href: "/", label: "Home", desktopTestId: "nav-home-desktop", mobileTestId: "nav-home-mobile" },
@@ -60,6 +61,7 @@ export default function AppHeader() {
   const router = useRouter();
   const { isAuthenticated, isReady, logout } = useAuth();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const brandHref = isPublicDocsMode ? "/documentation" : "/";
 
   const isRouteActive = (href: string) => {
     if (href === "/") {
@@ -88,13 +90,15 @@ export default function AppHeader() {
       <Toolbar
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "auto 1fr auto", md: "1fr auto 1fr" },
+          gridTemplateColumns: isPublicDocsMode
+            ? "1fr"
+            : { xs: "auto 1fr auto", md: "1fr auto 1fr" },
           alignItems: "center",
           gap: 2,
         }}
       >
         <Box sx={{ flexShrink: 0, lineHeight: 0, justifySelf: "start" }}>
-          <Link href="/" aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
+          <Link href={brandHref} aria-label="EVAISYS Testing Lab home" style={{ lineHeight: 0 }}>
             <Image
               src="/Logo.png"
               alt="EVAISYS Testing Lab"
@@ -106,105 +110,111 @@ export default function AppHeader() {
           </Link>
         </Box>
 
-        <Box
-          data-testid="desktop-navigation"
-          sx={{
-            display: { xs: "none", md: "flex" },
-            gap: 1,
-            alignItems: "center",
-            minWidth: 0,
-            justifySelf: "center",
-          }}
-        >
-          {navItems.map((item) => (
-            <Button
-              key={item.href}
-              color="inherit"
-              component={Link}
-              href={item.href}
-              data-testid={item.desktopTestId}
+        {isPublicDocsMode ? null : (
+          <>
+            <Box
+              data-testid="desktop-navigation"
               sx={{
-                borderBottom: isRouteActive(item.href)
-                  ? "2px solid rgba(255, 255, 255, 0.95)"
-                  : "2px solid transparent",
-                borderRadius: 0,
-                fontWeight: isRouteActive(item.href) ? 600 : 400,
+                display: { xs: "none", md: "flex" },
+                gap: 1,
+                alignItems: "center",
+                minWidth: 0,
+                justifySelf: "center",
               }}
             >
-              {item.label}
-            </Button>
-          ))}
-        </Box>
+              {navItems.map((item) => (
+                <Button
+                  key={item.href}
+                  color="inherit"
+                  component={Link}
+                  href={item.href}
+                  data-testid={item.desktopTestId}
+                  sx={{
+                    borderBottom: isRouteActive(item.href)
+                      ? "2px solid rgba(255, 255, 255, 0.95)"
+                      : "2px solid transparent",
+                    borderRadius: 0,
+                    fontWeight: isRouteActive(item.href) ? 600 : 400,
+                  }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
 
-        <Box
-          data-testid="auth-actions"
-          sx={{
-            display: { xs: "none", md: "flex" },
-            flexShrink: 0,
-            alignItems: "center",
-            justifySelf: "end",
-          }}
-        >
-          {isReady && isAuthenticated ? (
-            <Button color="inherit" onClick={handleLogout} data-testid="header-logout-button">
-              Logout
-            </Button>
-          ) : null}
-        </Box>
+            <Box
+              data-testid="auth-actions"
+              sx={{
+                display: { xs: "none", md: "flex" },
+                flexShrink: 0,
+                alignItems: "center",
+                justifySelf: "end",
+              }}
+            >
+              {isReady && isAuthenticated ? (
+                <Button color="inherit" onClick={handleLogout} data-testid="header-logout-button">
+                  Logout
+                </Button>
+              ) : null}
+            </Box>
 
-        <IconButton
-          color="inherit"
-          edge="end"
-          aria-label="open navigation"
-          onClick={handleMobileNavOpen}
-          data-testid="mobile-navigation-menu-button"
-          sx={{ display: { xs: "inline-flex", md: "none" }, ml: "auto" }}
-        >
-          <Typography variant="button">Menu</Typography>
-        </IconButton>
+            <IconButton
+              color="inherit"
+              edge="end"
+              aria-label="open navigation"
+              onClick={handleMobileNavOpen}
+              data-testid="mobile-navigation-menu-button"
+              sx={{ display: { xs: "inline-flex", md: "none" }, ml: "auto" }}
+            >
+              <Typography variant="button">Menu</Typography>
+            </IconButton>
+          </>
+        )}
       </Toolbar>
 
+      {isPublicDocsMode ? null : (
         <Drawer
           anchor="right"
           open={isMobileNavOpen}
           onClose={handleMobileNavClose}
           data-testid="mobile-navigation-drawer"
-      >
-        <Box
-          sx={{ width: 280, p: 2, display: "flex", flexDirection: "column", gap: 1 }}
-          role="presentation"
         >
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconButton aria-label="close navigation" onClick={handleMobileNavClose}>
-              <Typography variant="button">Close</Typography>
-            </IconButton>
+          <Box
+            sx={{ width: 280, p: 2, display: "flex", flexDirection: "column", gap: 1 }}
+            role="presentation"
+          >
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <IconButton aria-label="close navigation" onClick={handleMobileNavClose}>
+                <Typography variant="button">Close</Typography>
+              </IconButton>
+            </Box>
+            {navItems.map((item) => (
+              <Button
+                key={`mobile-${item.href}`}
+                component={Link}
+                href={item.href}
+                onClick={handleMobileNavClose}
+                variant={isRouteActive(item.href) ? "contained" : "text"}
+                color={isRouteActive(item.href) ? "primary" : "inherit"}
+                data-testid={item.mobileTestId}
+                sx={{ justifyContent: "flex-start" }}
+              >
+                {item.label}
+              </Button>
+            ))}
+            {isReady && isAuthenticated ? (
+              <Button
+                color="inherit"
+                onClick={handleLogout}
+                data-testid="mobile-logout-button"
+                sx={{ justifyContent: "flex-start" }}
+              >
+                Logout
+              </Button>
+            ) : null}
           </Box>
-          {navItems.map((item) => (
-            <Button
-              key={`mobile-${item.href}`}
-              component={Link}
-              href={item.href}
-              onClick={handleMobileNavClose}
-              variant={isRouteActive(item.href) ? "contained" : "text"}
-              color={isRouteActive(item.href) ? "primary" : "inherit"}
-              data-testid={item.mobileTestId}
-              sx={{ justifyContent: "flex-start" }}
-            >
-              {item.label}
-            </Button>
-          ))}
-          {isReady && isAuthenticated ? (
-            <Button
-              color="inherit"
-              onClick={handleLogout}
-              data-testid="mobile-logout-button"
-              sx={{ justifyContent: "flex-start" }}
-            >
-              Logout
-            </Button>
-          ) : null}
-        </Box>
-      </Drawer>
+        </Drawer>
+      )}
     </AppBar>
   );
 }

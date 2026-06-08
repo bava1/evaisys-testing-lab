@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Box, Typography } from "@mui/material";
 import { useAuth } from "@/components/auth-context";
+import { isPublicDocsMode } from "@/config/public-docs-mode";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -16,7 +17,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   const normalizedPathname =
     pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  const isPublicRoute = normalizedPathname === "/login";
+  const isPublicRoute =
+    normalizedPathname === "/login" ||
+    (isPublicDocsMode && normalizedPathname === "/documentation");
 
   useEffect(() => {
     if (isPublicRoute || !isReady) {

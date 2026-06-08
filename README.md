@@ -10,6 +10,12 @@ Unlike typical demo applications, EVAISYS Testing Lab was created primarily as a
 
 ---
 
+📘 Public Documentation Portal:
+
+The Documentation Portal contains the complete QA documentation package for the project, including:
+https://evaisys-testing-lab.vercel.app/documentation
+---
+
 # Project Vision
 
 The project is intended to serve as the foundation for a comprehensive testing and automation platform.

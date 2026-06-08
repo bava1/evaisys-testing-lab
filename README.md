@@ -223,12 +223,14 @@ docs/
 
 Before running the project, install:
 
-* Node.js
+* Node.js 18+
 * npm
 * Python 3.11+
 * Git
 
 ---
+
+
 
 # Installation
 
@@ -239,22 +241,25 @@ git clone <repository-url>
 cd evaisys-testing-lab
 ```
 
----
+## Root Setup
+
+Install root-level dependencies used by project scripts and the development orchestrator.
+
+```bash
+npm install
+```
 
 ## Frontend Setup
 
 ```bash
 cd apps/frontend
-
 npm install
 ```
-
----
 
 ## Backend Setup
 
 ```bash
-cd apps/backend
+cd ../backend
 
 python -m venv .venv
 
@@ -263,65 +268,49 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
----
-
 ## Playwright Setup
 
 ```bash
-cd playwright-tests
+cd ../../playwright-tests
 
 npm install
 
 npx playwright install
 ```
 
----
-
 # Running the Application
 
-## Start Backend
+After all dependencies are installed, start the full project from the repository root:
 
 ```bash
-cd apps/backend
-
-uvicorn app.main:app --reload
-```
-
-Backend URL:
-
-```text
-http://127.0.0.1:8000
-```
-
----
-
-## Start Frontend
-
-```bash
-cd apps/frontend
-
+cd ..
 npm run dev
 ```
 
-Frontend URL:
+This command starts:
 
 ```text
-http://127.0.0.1:3000
+Frontend: http://127.0.0.1:3000
+Backend:  http://127.0.0.1:8000
 ```
 
----
+Demo login credentials:
+
+```text
+Username: admin
+Password: 123456
+```
 
 # Running Tests
+
+Before running tests, make sure the backend environment has been created and project dependencies are installed.
 
 ## Run All Tests
 
 ```bash
 cd playwright-tests
-
 npx playwright test
 ```
-
----
 
 ## Run UI Tests
 
@@ -329,15 +318,11 @@ npx playwright test
 npx playwright test tests/auth
 ```
 
----
-
 ## Run API Tests
 
 ```bash
 npx playwright test tests/api
 ```
-
----
 
 ## Run a Specific Test File
 
@@ -345,7 +330,18 @@ npx playwright test tests/api
 npx playwright test tests/tasks/tasks-crud.spec.ts
 ```
 
----
+# Test Reports
+
+## Open Playwright Report
+
+```bash
+npx playwright show-report
+```
+
+The report can also be opened directly from the Testing Lab section inside the application.
+
+
+
 
 # Test Reports
 
